@@ -1,0 +1,40 @@
+<material-toolbar class="material-theme-dark" layout-order-lg="1">
+  <h2 class="material-toolbar-tools">
+    <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> Event Page</material-button>
+    <span flex></span>    
+    <material-button class="material-theme-dark" ng-click="completeAddEvent()">
+      <i class="fa fa-envelope"></i>
+    </material-button>
+  </h2>
+</material-toolbar>
+<material-toolbar class="material-theme-light-blue" layout-order-lg="1">
+  <h2 class="material-toolbar-tools">
+    <material-button flex class="material-theme-light-blue">
+      <span class="details-label">Time</span>
+      14 Oct
+    </material-button>
+
+    <material-button flex class="material-theme-light-blue">
+      <span class="details-label">Budget</span>
+      $40 - $50
+    </material-button>
+
+    <material-button flex ng-click="changeAttendees()" class="material-theme-light-blue">
+      <span class="details-label">Attendees</span>
+      5
+    </material-button>
+  </h2>
+</material-toolbar>
+
+<div id="event-page-content" layout="vertical" layout-order-lg="3" flex layout-padding ng-switch on="flags.tabIndex">
+  
+  <material-card ng-click="newSuggestion()" class="location-card" flex layout layout-align="center center">
+    <material-button class="empty-placeholder">+ Add activity</material-button>
+  </material-card>
+  <material-card ng-click="newSuggestion()" class="location-card" flex layout layout-align="center center">
+    <material-button class="empty-placeholder">+ Add activity</material-button>
+  </material-card>
+  <material-card ng-click="newSuggestion()" class="location-card" flex layout layout-align="center center">
+    <material-button class="empty-placeholder">+ Add activity</material-button>
+  </material-card>
+</div>

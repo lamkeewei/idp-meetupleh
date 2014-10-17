@@ -1,0 +1,132 @@
+#new-suggestion-content {
+  background-color: rgba(0,0,0,0.05);
+  
+  material-divider {
+    margin-top: 15px;
+  }
+  .search-field-group {
+    input {
+      width: 100%;
+    }
+
+    margin-top: -7.5px;
+    display: block;
+
+    label {
+      font-size: 14px;
+    }
+
+  } 
+
+  .price-label {
+    color: #999;
+    font-weight: 700;
+    padding-top: 12.5px;
+  }
+
+  material-slider {
+    // margin-top: 15px;
+  }
+
+  .slider-track-ticks {
+    display: none;
+  }
+
+  .price-input {
+    text-align: center;    
+  }
+
+  #price-input-group {
+    padding-bottom: 5px;
+    border-bottom: solid 1px #c7c7c7;
+    margin-bottom: 7.5px;
+    height: 60px;
+  }
+
+  .search-progress {
+    margin-top: 12.5px;
+    margin-bottom: 12.5px;
+  }
+
+  #search-button {
+    margin-top: 10px;
+  }
+
+  .search-results {
+    margin: 0px;
+    margin-bottom: 20px;
+    padding: 0px;
+    background-color: white;
+
+    .image-wrapper {
+      height: 175px;
+      background-color: rgba(0,0,0,0.2);      
+      background-size: 100%;
+    }
+
+    .result-content {
+      padding: 10px 10px 10px 10px;
+      
+      .ratings-wrapper {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+      }
+      .ratings {
+        background-color: #3f51b5;
+        text-align: center;
+        height: 25px;
+        width: 25px;
+        color: white;
+        padding-top: 3.5px;
+        padding-left: 0.75px;
+        border-radius: 12.5px;
+        margin: 0px;
+        margin-top: 17px;
+        font-size: 14px;
+      }
+
+      .ratings-label {
+        font-size: 12px;
+        color: rgba(0,0,0,0.65);
+      }
+    }
+
+    .result-content.address {
+      color: rgba(0,0,0,0.65);
+      padding: 0px;
+      margin-top: -5px;
+      font-size: 12px;
+    }
+
+    .suggestion-btn {
+      background-color: #90a4ae;
+      color: white;
+      font-weight: 300;
+      height: 35px;
+      border-radius: 0px;
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+  }
+
+  #results-area {
+    .material-subheader {
+      padding-left: 0px;
+      margin-top: -5px;
+      background-color: transparent;
+    }
+  }
+}
+
+.fa.extra-padding {
+  margin-right: 5px;
+}
+
+.controls-hidden {
+  margin-top: -180px;
+}
+
+#search-controls {
+  transition: all 0.6s ease-in-out;
+  transform: translate3d(0,0,0);
+}

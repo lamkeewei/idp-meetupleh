@@ -1,0 +1,26 @@
+<material-toolbar class="material-theme-dark" layout-order-lg="1">
+  <h2 class="material-toolbar-tools">
+    <material-button class="material-theme-dark" ng-click="toggleLeft()">Menu</material-button>
+    <span flex></span>    
+    <material-button class="material-theme-dark" ng-click="addNewEvent()">
+      + New Event
+    </material-button>
+  </h2>
+</material-toolbar>
+
+<div id="main-content" layout="vertical" layout-order-lg="3" flex layout-padding ng-switch on="flags.tabIndex">
+
+  <material-subheader class="subheader material-subheader-colored">{{getSubheader()}}</material-subheader>
+
+  <material-content>
+    <div ng-switch-when="0">      
+      <event-card ng-repeat="event in events" details="event"></event-card>
+      <event-card ng-repeat="event in events" details="event"></event-card>
+    </div>  
+  </material-content>
+</div>
+
+<material-tabs selected="flags.tabIndex" layout-order-lg="2" center>
+    <material-tab class="material-theme-dark">Events</material-tab>
+    <material-tab class="material-theme-dark">Notifications</material-tab>
+</material-tabs>

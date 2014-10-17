@@ -1,0 +1,17 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.material-theme-black {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+
+#main-content {
+    background-color: rgba(0,0,0,0.05);    
+
+    .subheader {
+      background-color: transparent;
+    }    
+}
+

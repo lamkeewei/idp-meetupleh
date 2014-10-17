@@ -1,0 +1,20 @@
+<material-toolbar class="material-theme-dark" layout-order-lg="1">
+  <h2 class="material-toolbar-tools">
+    <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> Suggestions</material-button>
+    <span flex></span>    
+    <material-button class="material-theme-dark" ng-click="completeAddEvent()">
+      <i class="fa fa-envelope"></i>
+    </material-button>
+  </h2>
+</material-toolbar>
+
+<div id="contact-list-content" layout="vertical" layout-order-lg="3" flex layout-padding>
+  <material-input-group ng-disabled="isDisabled" class="search-field-group ">
+    <label>Filter suggestions...</label>
+    <material-input type="text" ng-model="search.$"></material-input>
+  </material-input-group>
+
+  <material-content flex>
+    
+  </material-content>
+</div>

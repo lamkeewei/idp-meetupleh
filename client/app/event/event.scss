@@ -1,0 +1,27 @@
+.theme-grey {
+  background-color: rgba(0,0,0,0.1);
+
+  material-button {
+    background-color: transparent;    
+  }
+}
+
+#event-page-content {
+  background-color: rgba(0,0,0,0.05);
+
+  .empty-placeholder {
+    color: rgba(0,0,0,0.5);
+    background-color: white;
+  }
+
+  .location-card {
+    background-color: white;
+  }
+}
+
+.details-label {
+  display: block;
+  font-size: 10px;
+  margin-bottom: 5px;
+  color: rgba(255,255,255,0.87);
+}

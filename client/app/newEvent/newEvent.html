@@ -1,0 +1,38 @@
+<material-toolbar class="material-theme-dark" layout-order-lg="1">
+  <h2 class="material-toolbar-tools">
+    <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> Choose Contacts</material-button>
+    <span flex></span>    
+    <material-button class="material-theme-dark" ng-click="completeAddEvent()">
+      Done
+    </material-button>
+  </h2>
+</material-toolbar>
+
+<div id="contact-list-content" layout="vertical" layout-order-lg="3" flex layout-padding ng-switch on="flags.tabIndex">
+  <material-input-group ng-disabled="isDisabled" class="search-field-group ">
+    <label>Search for Contact...</label>
+    <material-input type="text" ng-model="search.$"></material-input>
+  </material-input-group>    
+  <material-content flex>
+    <material-list>
+      <material-item ng-repeat="contact in contacts | filter: search">
+        <material-item-content class="contact-item" layout="horizontal">
+          <div flex="30" layout layout-align="center center">
+            <div class="contact-icon" layout layout-align="center center">{{getFirstCharacter(contact)}}</div>            
+          </div>
+          <div flex layout="horizontal">
+            <div layout="vertical" flex layout-align="left center">
+              <h3 class="contact-name">{{contact.name.firstName}} {{contact.name.lastName | uppercase}}</h3>
+              <h3 class="contact-number">{{contact.contactNumber}}</h3>              
+            </div>
+            <div layout layout-align="center center">
+              <material-checkbox ng-model="contact.selected"></material-checkbox>
+            </div>
+          </div>
+        </material-item-content>
+        <material-divider ng-if="!$last"></material-divider>
+      </material-item>
+
+    </material-list>
+  </material-content>
+</div>

@@ -1,0 +1,48 @@
+.ratings-chart {
+  ul {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    list-style: none;
+    padding-left: 0px;
+
+    li {
+      margin-bottom: 10px;
+
+      .star-label {
+        font-size: 13px;
+        width: 50px;
+      }
+
+      .bar {
+        background-color: grey;
+        height: 20px;
+        width: 0%;
+        border-radius: 2px;
+        transition: all 0.3s ease-in-out;
+        text-align: right;
+        padding-right: 5px;
+        color: white;
+      }
+    }
+
+    li:first-child .bar {
+      background-color: #259b24;
+    }
+
+    li:nth-child(2) .bar {
+      background-color: #8bc34a;      
+    }
+
+    li:nth-child(3) .bar {
+      background-color: #ffeb3b;
+    }
+
+    li:nth-child(4) .bar {
+      background-color: #ffc107;
+    }
+
+    li:last-child .bar {      
+      background-color: #ff9800;        
+    }
+  }
+}

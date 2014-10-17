@@ -1,0 +1,80 @@
+<material-toolbar id="cover-toolbar" layout-order-lg="1">
+  <h2 class="material-toolbar-tools">
+    <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> Brotzeit</material-button>
+    <span flex></span>    
+    <material-button class="material-theme-dark" ng-click="completeAddEvent()">
+      <i class="fa fa-envelope"></i>
+    </material-button>
+  </h2>
+</material-toolbar>
+
+<div id="cover-image"></div>
+
+<div id="place-content" layout="vertical" layout-order-lg="3" flex>
+  <material-content flex place-img-scroll>
+    <div flex class="content-wrapper" layout="vertical">
+      <div layout="horizontal" class="top-bar">
+        <div flex class="place-title-wrapper" layout="vertical">
+          <h2 class="place-title">Brotzeit</h2>
+          <p><a href="http://maps.google.com/maps?daddr=1.28575953,103.8533318" target="_blank"><i class="fa fa-map-marker extra-padding"></i> 1 Fullerton Rd, #02-02/03/04</a></p>
+        </div>
+
+        <div class="ratings-wrapper">
+          <h3>4</h3>
+          <p>stars</p>
+        </div>        
+      </div>
+
+      <div class="details-bar" layout="horizontal" class="layout-padding">
+        <div flex>
+          <ul>
+            <li><i class="fa fa-money"></i>$30 - $50</li>
+            <li><i class="fa fa-phone"></i><a href="tel:65336333">6533 6333</a></li>
+            <li><i class="fa fa-clock-o"></i>6:00PM - 7:00PM</li>
+          </ul>
+        </div>
+        <div id="map" flex></div>
+      </div>
+      
+      <div class="tags-bar">
+        <span class="tags match">German</span>
+        <span class="tags match">Sausages</span>
+        <span class="tags">Beer</span>
+        <span class="tags">Sports Bar</span>
+      </div>
+      
+      <material-divider></material-divider>      
+
+      <div class="ratings-chart-bar">
+        <span class="grey-text">Ratings:</span>
+        <ratings-chart></ratings-chart>
+      </div>
+
+      <material-divider></material-divider>
+      
+      <div class="review-area">        
+        <md-list>
+          <md-item ng-repeat="review in reviews">
+            <md-item-content layout="horizontal" layout-align="center center">
+              <div class="review-block">
+                  <h3>J</h3>
+              </div>
+              <div class="review" flex>
+                <h4>Ratings: {{review.ratings}} / 5</h4>
+                <p>
+                  {{review.review}}
+                </p>
+              </div>
+            </md-item-content>
+
+            <material-divider ng-show="!$last"></material-divider>
+          </md-item>
+        </md-list>
+      </div>
+    </div>
+
+    <div class="add-btn" layout="horizontal">
+        <material-button ng-click="addSuggestion()" flex class="material-theme-dark">Add as suggestion</material-button>
+      </div>
+  </material-content>
+</div>
