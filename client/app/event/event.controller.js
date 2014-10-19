@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('EventCtrl', function ($scope, $location, $window) {
+  .controller('EventCtrl', function ($scope, $location, $window, State) {
+    State.reset();
     $scope.back = function(){
-      $location.path('/');
+      State.back();
     };
     
     $scope.message = 'Hello';

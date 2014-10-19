@@ -9,7 +9,8 @@ angular.module('idpMeetuplehApp', [
   'ui.router',
   'ui.bootstrap',
   'ngMaterial',
-  'hmTouchEvents'
+  'hmTouchEvents',
+  'firebase'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -53,5 +54,11 @@ angular.module('idpMeetuplehApp', [
           $location.path('/login');
         }
       });
+    });
+  })
+
+  .run(function($rootScope, State){
+    $rootScope.$on('$locationChangeStart', function(event, newState, oldState){
+      State.interceptBack(event, newState, oldState);
     });
   });

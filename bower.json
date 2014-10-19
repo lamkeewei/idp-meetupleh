@@ -17,7 +17,8 @@
     "angular-socket-io": "~0.6.0",
     "angular-ui-router": "~0.2.10",
     "angular-material": "~0.4.0",
-    "ryanmullins-angular-hammer": "~2.0.2"
+    "ryanmullins-angular-hammer": "~2.0.2",
+    "angularfire": "~0.8.2"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

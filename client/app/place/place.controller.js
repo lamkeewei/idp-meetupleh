@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('PlaceCtrl', function ($scope, $location) {
+  .controller('PlaceCtrl', function ($scope, $location, State) {
+    console.log(State.search);
     $scope.back = function(){
-      $location.path('/suggestion/new/back');
+      $location.path('/suggestion/new');      
     };
 
     $scope.addSuggestion = function(){

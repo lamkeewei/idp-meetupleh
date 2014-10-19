@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('NewsuggestionCtrl', function ($scope, $timeout, $location, $stateParams) {
+  .controller('NewsuggestionCtrl', function ($scope, $timeout, $location, $stateParams, State) {
     $scope.back = function(){
       $location.path('/event');
     };
@@ -9,12 +9,11 @@ angular.module('idpMeetuplehApp')
     $scope.flags = {
       isSearching: false,
       searchLabel: 'Search',
-      isBack: false
+      defaultHidden: State.search.suggestion
     };    
 
-    // Set defautl state if is back
-    if ($stateParams.flag) {
-      $scope.flags.isBack = true;
+    // Set default state if is back
+    if (State.search.suggestion) {
       $scope.flags.isSearching = true;
       $scope.flags.searchDone = true;
       $scope.flags.searchLabel = 'New Search';      
@@ -39,17 +38,23 @@ angular.module('idpMeetuplehApp')
       price: 11
     };
 
-    $scope.searchPlace = function(){      
-      $scope.flags.isBack = false;
+    $scope.searchPlace = function(){
+      $scope.flags.defaultHidden = false;
       $scope.flags.isSearching = !$scope.flags.isSearching;
 
-      if ($scope.flags.isSearching) {        
+      if ($scope.flags.isSearching) {
+        // Store search state
+        State.search.suggestion = $scope.search;
+
         $scope.flags.searchLabel = 'Searching...';
         $timeout(function(){
           $scope.flags.searchDone = true;
           $scope.flags.searchLabel = 'New Search';
         }, 2000);
-      } else {        
+      } else {
+        // Clear search state
+        delete State.search.suggestion;
+
         $scope.flags.searchDone = false;
         $scope.flags.searchLabel = 'Search';
       }

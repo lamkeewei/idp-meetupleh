@@ -1,0 +1,84 @@
+// Data Structure
+
+{
+  users: {
+    '<md5_email>': {
+      name: '<name>',
+      email: '<email>',
+      contacts: {
+        '<md5_email>': true,
+        '<md5_email>': true
+        ...
+      }
+    }
+  },
+
+  events: {
+    '<generated_id>': {
+      title: '<title>',
+      attendees: {
+        '<md5_email>': true,
+        '<md5_email>': true
+        ...
+      }      
+    }
+  },
+
+  suggestions: {
+    '<event_id>': {
+      1: {
+        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': true,
+        ...
+      },
+      2: {
+        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': true,
+        ...
+      },
+      3: {
+        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': true,
+        ...
+      },    
+    }
+  },
+
+  comments: {
+    '<event_id>': {
+      '<activity_num>': {
+        '<mongo_loc_id>': {
+          '<generated_id>': {
+            user: '<user_email>',
+            comment: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, doloremque.'
+          }
+        }
+      }
+    }
+
+  votes: {
+    '<event_id>': {
+      '<activity_num>': {
+        '<mongo_loc_id>': {
+          '<generated_id>': {
+            user: '<user_name>',
+            vote: '<value_of_vote>'
+          }
+        }
+      }
+    }
+  },
+
+  notifications: {
+    '<event_id>': {
+      '<generated_id>': {
+        from: '<user_name>',
+        type: '<type_of_event>',
+        message: '<message>' 
+      }
+    }
+  }
+}

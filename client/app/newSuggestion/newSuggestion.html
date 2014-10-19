@@ -9,7 +9,7 @@
 </material-toolbar>
 
 <div id="new-suggestion-content" layout="vertical" layout-order-lg="3" flex layout-padding>
-    <div id="search-controls" ng-hide="flags.isBack" ng-class="{ 'controls-hidden': flags.isSearching }">      
+    <div id="search-controls" ng-hide="flags.defaultHidden" ng-class="{ 'controls-hidden': flags.isSearching }">      
       <material-input-group ng-disabled="isDisabled" class="search-field-group ">
         <label>Keywords...</label>
         <material-input type="text"></material-input>
