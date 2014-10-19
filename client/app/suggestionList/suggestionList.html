@@ -8,13 +8,68 @@
   </h2>
 </material-toolbar>
 
-<div id="contact-list-content" layout="vertical" layout-order-lg="3" flex layout-padding>
+<div id="suggestions-list-content" layout="vertical" layout-order-lg="3" flex layout-padding>
   <material-input-group ng-disabled="isDisabled" class="search-field-group ">
     <label>Filter suggestions...</label>
-    <material-input type="text" ng-model="search.$"></material-input>
+    <material-input type="text" ng-model="search.name"></material-input>
   </material-input-group>
 
   <material-content flex>
-    
+    <material-card ng-repeat="suggestion in suggestions | filter: search" class="suggestion-card" layout="vertical">
+      <div layout="horizontal" layout-align="center center" layout-padding class="title-bar">
+        <div class="num-label-wrapper">
+          <h3 class="num-label">{{$index + 1}}</h3>
+        </div>
+        <h3 class="place-name" flex>{{suggestion.name}}</h3>
+      </div>
+      <div class="image-wrapper" 
+        ng-style="{'background-image':'url(' + suggestion.imageUrl + ')'}">
+      </div>
+      <div layout-padding>
+        <material-button class="votes-btn" ng-click="openOverlay()">
+          <strong>5 votes</strong>
+          <strong>5 comments</strong>
+        </material-button>
+      </div>
+
+      <div layout="horizontal">
+        <material-button class="suggestion-btn vote-up" flex>
+          <i class="fa fa-chevron-up"></i> Vote Up
+        </material-button>
+
+        <material-button class="suggestion-btn vote-down" flex>
+          <i class="fa fa-chevron-down"></i> Vote Down
+        </material-button>
+      </div>
+    </material-card>
   </material-content>
 </div>
+
+<material-content id="comments-overlay" layout="vertical">
+  <div layout="horizontal" class="like-bar" layout-align="left center">
+    <material-button flex>
+      <i class="fa fa-thumbs-o-up"></i>
+      5 voted up
+    </material-button> 
+    <material-button flex>
+      <i class="fa fa-thumbs-o-down"></i>
+      5 voted down
+    </material-button>    
+    <material-button class="close-btn" ng-click="closeOverlay()">
+      <i class="fa fa-close"></i>
+    </material-button>
+  </div>
+
+  <material-divider></material-divider>
+  <material-content flex>
+    
+  </material-content>
+  <div class="comment-bar" layout="horizontal">
+    <div layout-padding flex>
+      <input type="text" placeholder="Enter your comment..." />      
+    </div>
+    <material-button class="send-btn material-theme-dark">
+      <i class="fa fa-paper-plane"></i>
+    </material-button>
+  </div>
+</material-content>

@@ -5,6 +5,7 @@ angular.module('idpMeetuplehApp')
     $scope.back = function(){
       $location.path('/');
     };
+    
     $scope.search = {};
     $scope.contacts = [
       {

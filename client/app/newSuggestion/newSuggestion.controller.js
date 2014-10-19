@@ -62,4 +62,11 @@ angular.module('idpMeetuplehApp')
     $scope.showDetails = function(){
       $location.path('/place');
     };
+
+    $scope.addSuggestion = function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      $location.path('/suggestion/list')
+    };
   });
