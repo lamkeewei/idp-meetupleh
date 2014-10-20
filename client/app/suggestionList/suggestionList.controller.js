@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('SuggestionlistCtrl', function ($scope, $q, $location, State, suggestions, userMD5, Vote, $stateParams) {      
+  .controller('SuggestionlistCtrl', function ($scope, $filter, $q, $location, State, suggestions, userMD5, Vote, $stateParams) {      
     $scope.search = {
       details: ''
     };
@@ -18,6 +18,20 @@ angular.module('idpMeetuplehApp')
     $scope.closeOverlay = function() {      
       var overlay = document.getElementById('comments-overlay');
       overlay.style.top = '100vh';
+    };
+
+    $scope.getRank = function(suggestion){
+      var sorted = $filter('orderBy')($scope.suggestions, $scope.sortVotes, false);
+
+      var position = 0;
+
+      sorted.forEach(function(p, i){        
+        if (p.$id === suggestion.$id) {
+          position = i + 1;
+        }
+      });
+
+      return position;
     };
 
     $scope.getVotes = function (place) {

@@ -18,7 +18,7 @@
     <material-card ng-repeat="suggestion in suggestions | orderBy: sortVotes | filter: search" class="suggestion-card" layout="vertical">
       <div layout="horizontal" layout-align="center center" layout-padding class="title-bar">
         <div class="num-label-wrapper">
-          <h3 class="num-label">{{$index + 1}}</h3>
+          <h3 class="num-label">{{getRank(suggestion)}}</h3>
         </div>
         <h3 class="place-name" flex>{{suggestion.details.name}}</h3>
       </div>
