@@ -6,6 +6,11 @@ angular.module('idpMeetuplehApp')
       .state('newEvent', {
         url: '/event/new',
         templateUrl: 'app/newEvent/newEvent.html',
-        controller: 'NeweventCtrl'
+        controller: 'NeweventCtrl',
+        resolve: {
+          contacts: ['FbUser', 'userMD5', function(FbUser, md5){
+            return FbUser.getContacts(md5);
+          }]
+        }        
       });
   });

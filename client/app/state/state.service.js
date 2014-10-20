@@ -3,20 +3,31 @@
 angular.module('idpMeetuplehApp')
   .service('State', function ($location) {
     this.search = {};
+    this.eventState = {};
+
     this.intercepts = [
       {
-        oldState: '/event',
+        oldState: '/event/id',
         newState: '/event/new',
         redirect: '/'
       }, {
         oldState: '/suggestion/list',
         newState: '/place',
-        redirect: '/event'
+        redirect: '/event/id/$id'
       }, {
         oldState: '/suggestion/list',
         newState: '/suggestion/new',
-        redirect: '/event'
-      }, 
+        redirect: '/event/id/$id'
+      }, {
+        oldState: '/suggestion/new',
+        redirect: '/event/id/$id'
+      }, {
+        oldState: '/event/new',
+        redirect: '/'
+      }, {
+        oldState: '/event/id',
+        redirect: '/'
+      }
     ];
 
     this.reset = function(){
@@ -24,13 +35,21 @@ angular.module('idpMeetuplehApp')
     };
 
     this.back = function(){
+      var self = this;
       var currentPath = $location.path();
+      var match = false;
 
       this.intercepts.forEach(function(intercept){
-        if (currentPath === intercept.oldState) {
-          $location.path(intercept.redirect);
+        if (currentPath.indexOf(intercept.oldState) > -1) {
+          var path = intercept.redirect.replace('$id', self.eventState.active);
+          $location.path(path);
+          match = true;
         }
       });
+
+      if (!match) {
+        history.back();
+      }
     };
 
     this.interceptBack = function(event, newState, oldState){
@@ -44,9 +63,14 @@ angular.module('idpMeetuplehApp')
       newState = extractPath(newState);
       oldState = extractPath(oldState);
 
+      var self = this;
       this.intercepts.forEach(function(intercept){        
-        if (oldState === intercept.oldState && newState === intercept.newState ) {
-          $location.path(intercept.redirect);
+        if (oldState.indexOf(intercept.oldState) > -1
+            && newState
+            && newState.indexOf(intercept.newState) > -1 ) {
+          var path = intercept.redirect.replace('$id', self.eventState.active);
+          
+          $location.path(path);
         }        
       });
     };

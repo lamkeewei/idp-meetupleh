@@ -21,20 +21,20 @@
 
     <material-button flex ng-click="changeAttendees()" class="material-theme-light-blue">
       <span class="details-label">Attendees</span>
-      5
+      {{getAttendeesCount()}}
     </material-button>
   </h2>
 </material-toolbar>
 
 <div id="event-page-content" layout="vertical" layout-order-lg="3" flex layout-padding ng-switch on="flags.tabIndex">
   
-  <material-card ng-click="newSuggestion()" class="location-card" flex layout layout-align="center center">
+  <material-card ng-click="newSuggestion(1)" class="location-card" flex layout layout-align="center center">
     <material-button class="empty-placeholder">+ Add activity</material-button>
   </material-card>
-  <material-card ng-click="newSuggestion()" class="location-card" flex layout layout-align="center center">
+  <material-card ng-click="newSuggestion(2)" class="location-card" flex layout layout-align="center center">
     <material-button class="empty-placeholder">+ Add activity</material-button>
   </material-card>
-  <material-card ng-click="newSuggestion()" class="location-card" flex layout layout-align="center center">
+  <material-card ng-click="newSuggestion(3)" class="location-card" flex layout layout-align="center center">
     <material-button class="empty-placeholder">+ Add activity</material-button>
   </material-card>
 </div>

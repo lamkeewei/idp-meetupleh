@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('SuggestionlistCtrl', function ($scope, $location) {
-    $scope.search = {};
+  .controller('SuggestionlistCtrl', function ($scope, $q, $location, State, suggestions, userMD5, Vote, $stateParams) {      
+    $scope.search = {
+      details: ''
+    };
 
     $scope.back = function(){
-      $location.path('/event');
+      State.back();
     };
 
     $scope.openOverlay = function() {      
@@ -18,18 +20,43 @@ angular.module('idpMeetuplehApp')
       overlay.style.top = '100vh';
     };
 
-    $scope.suggestions = [
-      {
-        name: 'Brotzeit',
-        address: '1 Fullerton Rd, #02-02/03/04',
-        ratings: 4,
-        imageUrl: 'http://www.asia-bars.com/wp-content/uploads/2011/10/brotzeit0081.jpg'
-      },
-      {
-        name: 'Timbre',
-        address: '#01-04, The Arts House At Old Parliament',
-        ratings: 3,
-        imageUrl: 'http://blog.wearespaces.com/wp-content/uploads/2013/09/timbreartshouse.jpg'
+    $scope.getVotes = function (place) {
+      if (place.votes && place.votes.length > 0) {
+        var score = 0;
+        place.votes.forEach(function(vote){
+          score += vote.$value;
+        });
+        return score;
+      } else {
+        return 0;
       }
-    ];
+    };
+
+    $scope.sortVotes = function(place){
+      return -1 * $scope.getVotes(place);
+    };
+
+    $scope.upVote = function(place){
+      if (place.userVote.$value === 1) {
+        Vote.removeVote(State.eventState.active, $stateParams.activity, place.details._id, userMD5);
+        return;
+      }
+
+      Vote.addVote(State.eventState.active, $stateParams.activity, place.details._id, userMD5, 1);
+      place.userVote.$value = 1;
+    };
+
+    $scope.downVote = function(place){
+      if (place.userVote.$value === -1) {
+        Vote.removeVote(State.eventState.active, $stateParams.activity, place.details._id, userMD5);
+        return;
+      }
+
+      Vote.addVote(State.eventState.active, $stateParams.activity, place.details._id, userMD5, -1);
+      place.userVote.$value = -1;
+    };    
+
+    $scope.suggestions = suggestions;
+
+
   });

@@ -7,43 +7,47 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Place = require('../api/Place/Place.model');
 
-Thing.find({}).remove(function() {
-  Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
+Place.find({}).remove(function() {
+  Place.create({
+    name: 'Brotzeit',
+    address: '1 Fullerton Rd, #02-02/03/04',
+    imageUrl: 'http://www.asia-bars.com/wp-content/uploads/2011/10/brotzeit0081.jpg',
+    location: {
+      lat: 1.28575953,
+      lng: 103.8533318
+    },  
+    reviews: [
+      {
+        name: 'Jane',
+        ratings: 4,
+        review: 'Looks like a good place to go to'
+      }, {
+        name: 'Tom',
+        ratings: 4,
+        review: 'Looks like a good place to go to'
+      }, 
+    ]
   }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-  }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  },  {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  },  {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  },{
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
+    name: 'Timbre',
+    address: '#01-04, The Arts House At Old Parliament',
+    imageUrl: 'http://blog.wearespaces.com/wp-content/uploads/2013/09/timbreartshouse.jpg',
+    location: {
+      lat: 1.28575953,
+      lng: 103.8533318
+    },  
+    reviews: [
+      {
+        name: 'Jane',
+        ratings: 4,
+        review: 'Looks like a good place to go to'
+      }, {
+        name: 'Tom',
+        ratings: 4,
+        review: 'Looks like a good place to go to'
+      }, 
+    ]
   });
 });
 
-User.find({}).remove(function() {
-  User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin'
-  }, function() {
-      console.log('finished populating users');
-    }
-  );
-});

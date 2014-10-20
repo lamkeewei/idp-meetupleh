@@ -46,6 +46,8 @@ angular.module('idpMeetuplehApp', [
     };
   })
 
+  .value('userMD5', '64834fb98710c9c8b2d7cc5424903c8b')
+
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
@@ -57,8 +59,16 @@ angular.module('idpMeetuplehApp', [
     });
   })
 
-  .run(function($rootScope, State){
-    $rootScope.$on('$locationChangeStart', function(event, newState, oldState){
+  .run(function($rootScope, State, $location){
+    $rootScope.$on('$stateChangeStart', function(event, toState){
+      var url = toState.url;
+      if ((url !== '/' || url !== '/event/new') && !State.eventState.active) {
+        return $location.path('/');
+      }
+    });
+
+    // TODO: Fix this when have time. Should use stateChangeStart
+    $rootScope.$on('$locationChangeStart', function(event, newState, oldState){ 
       State.interceptBack(event, newState, oldState);
     });
   });

@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('NewsuggestionCtrl', function ($scope, $timeout, $location, $stateParams, State) {
+  .controller('NewsuggestionCtrl', function ($scope, $timeout, $location, $stateParams, State, Place, Suggestion) {
     $scope.back = function(){
-      $location.path('/event');
+      State.back();
     };
     
     $scope.flags = {
@@ -12,27 +12,16 @@ angular.module('idpMeetuplehApp')
       defaultHidden: State.search.suggestion
     };    
 
+    $scope.results = [];    
+
     // Set default state if is back
     if (State.search.suggestion) {
       $scope.flags.isSearching = true;
       $scope.flags.searchDone = true;
       $scope.flags.searchLabel = 'New Search';      
+      $scope.results = State.search.suggestion;
     }
 
-    $scope.results = [
-      {
-        name: 'Brotzeit',
-        address: '1 Fullerton Rd, #02-02/03/04',
-        ratings: 4,
-        imageUrl: 'http://www.asia-bars.com/wp-content/uploads/2011/10/brotzeit0081.jpg'
-      },
-      {
-        name: 'Timbre',
-        address: '#01-04, The Arts House At Old Parliament',
-        ratings: 3,
-        imageUrl: 'http://blog.wearespaces.com/wp-content/uploads/2013/09/timbreartshouse.jpg'
-      },
-    ];    
 
     $scope.search = {
       price: 11
@@ -44,17 +33,17 @@ angular.module('idpMeetuplehApp')
 
       if ($scope.flags.isSearching) {
         // Store search state
-        State.search.suggestion = $scope.search;
-
         $scope.flags.searchLabel = 'Searching...';
-        $timeout(function(){
+        Place.query(function(places){
+          State.search.suggestion = places;
+          $scope.results = places;
           $scope.flags.searchDone = true;
           $scope.flags.searchLabel = 'New Search';
-        }, 2000);
+        });
       } else {
         // Clear search state
         delete State.search.suggestion;
-
+        $scope.results = [];
         $scope.flags.searchDone = false;
         $scope.flags.searchLabel = 'Search';
       }
@@ -64,14 +53,26 @@ angular.module('idpMeetuplehApp')
       $scope.search.area = 'Clarke Quay';
     };
 
-    $scope.showDetails = function(){
-      $location.path('/place');
+    $scope.showDetails = function(place){
+      $location.path('/place/' + $stateParams.activity + '/' + place._id);
     };
 
-    $scope.addSuggestion = function(event){
+    $scope.getRatings = function(place){
+      var score = 0;
+      place.reviews.forEach(function(review){
+        score += review.ratings;
+      });
+
+      return score / place.reviews.length;
+    };
+
+    $scope.addSuggestion = function(event, place){
       event.preventDefault();
       event.stopPropagation();
 
-      $location.path('/suggestion/list')
+      Suggestion.addSuggestion(State.eventState.active, $stateParams.activity, place._id)
+        .then(function(){
+          $location.path('/suggestion/list/' + $stateParams.activity);          
+        });
     };
   });

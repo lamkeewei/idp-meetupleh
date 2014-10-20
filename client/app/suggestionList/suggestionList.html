@@ -11,33 +11,33 @@
 <div id="suggestions-list-content" layout="vertical" layout-order-lg="3" flex layout-padding>
   <material-input-group ng-disabled="isDisabled" class="search-field-group ">
     <label>Filter suggestions...</label>
-    <material-input type="text" ng-model="search.name"></material-input>
+    <material-input type="text" ng-model="search.details.name"></material-input>
   </material-input-group>
 
   <material-content flex>
-    <material-card ng-repeat="suggestion in suggestions | filter: search" class="suggestion-card" layout="vertical">
+    <material-card ng-repeat="suggestion in suggestions | orderBy: sortVotes | filter: search" class="suggestion-card" layout="vertical">
       <div layout="horizontal" layout-align="center center" layout-padding class="title-bar">
         <div class="num-label-wrapper">
           <h3 class="num-label">{{$index + 1}}</h3>
         </div>
-        <h3 class="place-name" flex>{{suggestion.name}}</h3>
+        <h3 class="place-name" flex>{{suggestion.details.name}}</h3>
       </div>
       <div class="image-wrapper" 
-        ng-style="{'background-image':'url(' + suggestion.imageUrl + ')'}">
+        ng-style="{'background-image':'url(' + suggestion.details.imageUrl + ')'}">
       </div>
       <div layout-padding>
         <material-button class="votes-btn" ng-click="openOverlay()">
-          <strong>5 votes</strong>
+          <strong>{{getVotes(suggestion)}} votes</strong>
           <strong>5 comments</strong>
         </material-button>
       </div>
 
       <div layout="horizontal">
-        <material-button class="suggestion-btn vote-up" flex>
+        <material-button class="suggestion-btn vote-up" ng-class="{'voted': suggestion.userVote.$value > 0}" flex ng-click="upVote(suggestion)">
           <i class="fa fa-chevron-up"></i> Vote Up
         </material-button>
 
-        <material-button class="suggestion-btn vote-down" flex>
+        <material-button class="suggestion-btn vote-down" ng-class="{'voted': suggestion.userVote.$value < 0}" flex ng-click="downVote(suggestion)">
           <i class="fa fa-chevron-down"></i> Vote Down
         </material-button>
       </div>

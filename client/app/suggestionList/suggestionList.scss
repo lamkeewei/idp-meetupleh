@@ -101,6 +101,14 @@
     .suggestion-btn.vote-down {
       border-bottom-right-radius: 2px;
     }
+
+    .suggestion-btn.vote-up.voted {
+      background-color: #42bd41;
+    }
+
+    .suggestion-btn.vote-down.voted {
+      background-color: #f36c60;
+    }
   }
 }
 

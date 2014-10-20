@@ -2,10 +2,15 @@
 
 angular.module('idpMeetuplehApp')
   .config(function ($stateProvider) {
-    $stateProvider
+    $stateProvider      
       .state('event', {
-        url: '/event',
+        url: '/event/id/:id',
         templateUrl: 'app/event/event.html',
-        controller: 'EventCtrl'
+        controller: 'EventCtrl',
+        resolve: {
+          event: ['Event', '$stateParams', function(Event, $stateParams){
+            return Event.getEvent($stateParams.id).$loaded();
+          }]
+        }
       });
   });

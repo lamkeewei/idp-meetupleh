@@ -1,18 +1,22 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('PlaceCtrl', function ($scope, $location, State) {
-    console.log(State.search);
+  .controller('PlaceCtrl', function ($scope, $location, State, place, $stateParams, Suggestion) {
+    $scope.place = place;
+
     $scope.back = function(){
-      $location.path('/suggestion/new');      
+      State.back();
     };
 
     $scope.addSuggestion = function(){
-      $location.path('/suggestion/list');
+      Suggestion.addSuggestion(State.eventState.active, $stateParams.activity, $scope.place._id)
+        .then(function(){
+          $location.path('/suggestion/list/' + $stateParams.activity);          
+        });
     };
 
     var mapOptions = {
-      center: { lat: 1.28575953, lng: 103.8533318 },
+      center: { lat: $scope.place.location.lat, lng: $scope.place.location.lng },
       zoom: 17,
       disableDefaultUI: true,
       draggable: false
@@ -25,23 +29,16 @@ angular.module('idpMeetuplehApp')
       map: map      
     });
 
-    $scope.reviews = [
-      {
-        name: 'Jane',
-        ratings: 4,
-        review: 'Great sausages here. Definitely will come back again!'
-      }, {
-        name: 'Jane',
-        ratings: 4,
-        review: 'Great sausages here. Definitely will come back again!'
-      }, {
-        name: 'Jane',
-        ratings: 4,
-        review: 'Great sausages here. Definitely will come back again!'
-      }, {
-        name: 'Jane',
-        ratings: 4,
-        review: 'Great sausages here. Definitely will come back again!'
-      }
-    ];
+    $scope.getRatings = function(place){
+      var score = 0;
+      place.reviews.forEach(function(review){
+        score += review.ratings;
+      });
+
+      return score / place.reviews.length;
+    };
+
+    $scope.getFirstCharacter = function(str){
+      return str.charAt(0);
+    };
   });

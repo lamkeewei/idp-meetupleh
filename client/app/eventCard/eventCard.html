@@ -1,10 +1,10 @@
 <material-card layout="horizontal" class="event-card" ng-click="viewEvent()">
   <div flex="30" class="date-block" layout-align="center">
-    <h1>{{details.date.day}}</h1>
-    <p>{{details.date.month | uppercase}}</p>
+    <h1>{{details.date | date: 'd'}}</h1>
+    <p>{{details.date | date: 'MMMM'}}</p>
   </div>
   <div class="event-details" layout="vertical" layout-align="left center" flex>
     <h3>{{details.title}}</h3>
-    <p>Organized by: {{details.organizer}}</p>
+    <p>Organized by: You</p>
   </div>
 </material-card>

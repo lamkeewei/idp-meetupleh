@@ -3,8 +3,12 @@
 {
   users: {
     '<md5_email>': {
-      name: '<name>',
+      name: {
+        firstName: '<first_name>',
+        lastName: '<last_name'
+      },
       email: '<email>',
+      phone: '<phone_number>',
       contacts: {
         '<md5_email>': true,
         '<md5_email>': true
@@ -16,6 +20,7 @@
   events: {
     '<generated_id>': {
       title: '<title>',
+      organizer: '<md5_email>',
       attendees: {
         '<md5_email>': true,
         '<md5_email>': true
@@ -27,21 +32,21 @@
   suggestions: {
     '<event_id>': {
       1: {
-        '<mongo_loc_id>': true,
-        '<mongo_loc_id>': true,
-        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': '<vote_value>',
+        '<mongo_loc_id>': '<vote_value>',
+        '<mongo_loc_id>': '<vote_value>',
         ...
       },
       2: {
-        '<mongo_loc_id>': true,
-        '<mongo_loc_id>': true,
-        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': '<vote_value>',
+        '<mongo_loc_id>': '<vote_value>',
+        '<mongo_loc_id>': '<vote_value>',
         ...
       },
       3: {
-        '<mongo_loc_id>': true,
-        '<mongo_loc_id>': true,
-        '<mongo_loc_id>': true,
+        '<mongo_loc_id>': '<vote_value>',
+        '<mongo_loc_id>': '<vote_value>',
+        '<mongo_loc_id>': '<vote_value>',
         ...
       },    
     }

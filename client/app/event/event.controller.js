@@ -1,8 +1,14 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('EventCtrl', function ($scope, $location, $window, State) {
+  .controller('EventCtrl', function ($scope, $location, $window, State, event) {    
     State.reset();
+    $scope.event = event;
+    
+    $scope.getAttendeesCount = function(){
+      return Object.keys($scope.event.attendees).length;
+    };
+
     $scope.back = function(){
       State.back();
     };
@@ -17,7 +23,6 @@ angular.module('idpMeetuplehApp')
           y: event.deltaY
       };
       var element = event.target;
-      element.offsetWidth;
 
       if (!ticking) {
         ticking = true;
@@ -26,10 +31,10 @@ angular.module('idpMeetuplehApp')
           ticking = false;
         });        
       }
-    };
+    };    
 
-    $scope.newSuggestion = function(){
-      $location.path('/suggestion/new');
+    $scope.newSuggestion = function(activity){
+      $location.path('/suggestion/new/' + activity);
     };
 
     $scope.changeAttendees = function(){

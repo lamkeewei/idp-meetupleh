@@ -44,7 +44,7 @@
     <material-divider ng-show="flags.searchDone"></material-divider>    
     <material-content id="results-area" flex ng-show="flags.searchDone"> 
       <material-subheader>Found 2 places:</material-subheader> 
-      <material-card ng-repeat="result in results" class="search-results" layout="vertical" ng-click="showDetails()">
+      <material-card ng-repeat="result in results" class="search-results" layout="vertical" ng-click="showDetails(result)">
         <div class="image-wrapper"
           ng-style="{'background-image':'url(' + result.imageUrl + ')'}">
         </div>
@@ -56,12 +56,12 @@
             </p>
           </div>
           <div class="ratings-wrapper">            
-            <h3 class="ratings">{{result.ratings}}</h3>
+            <h3 class="ratings">{{getRatings(result)}}</h3>
             <span class="ratings-label">stars</span>
           </div>
         </div>        
 
-        <material-button class="suggestion-btn" ng-click="addSuggestion($event)">
+        <material-button class="suggestion-btn" ng-click="addSuggestion($event, result)">
           Make suggestion
         </material-button>
       </material-card>      
