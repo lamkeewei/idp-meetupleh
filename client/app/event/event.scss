@@ -17,6 +17,93 @@
   .location-card {
     background-color: white;
   }
+
+  .activity-card {
+    background-color: white;
+    
+    .icon {
+      width: 125px;
+      text-align: center;
+      border-right: solid rgba(0,0,0,0.12) 1px;
+
+      h3 {
+        background-color: #3f51b5;
+        border-radius: 25px;
+        // border: solid #03a9f4 2px;
+        width: 50px;
+        color: white;
+        height: 50px;
+        font-size: 18px;
+        padding-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .icon.warning {
+      h3 {
+        background-color: #e91e63;
+      }
+    }
+
+    .details.warning {
+      .label.label-default {
+        color: #e91e63;
+        border: solid 1px #e91e63;
+      }
+
+      material-button {
+        color: #e91e63;
+      }
+    }
+
+    .details {
+      text-align: center;
+      padding-left: 20px;
+      material-button {
+        text-transform: none;
+        background-color: transparent;
+        color: #3f51b5;
+
+        button {
+          font-weight: 300;
+          font-size: 12px;
+        }
+      }
+
+      p {
+        text-align: center;
+        font-weight: 300;
+        font-size: 12px;
+        // padding-left: 7.5px;
+        margin-bottom: 7.5px;
+
+        .label {
+          margin-top: 10px;
+          font-size: 10px;          
+        }
+
+        .label.label-default {
+          background-color: transparent;
+          color: #3f51b5;
+          border: solid 1px #3f51b5;
+          // border-radius: 10px;
+          // padding-left: 5px;
+          // padding-right: 7.5px;
+        }
+      }
+
+
+      .place {
+        button {
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
 
 .details-label {

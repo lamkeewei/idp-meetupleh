@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('SuggestionlistCtrl', function ($scope, $filter, $q, $location, State, suggestions, userMD5, Vote, $stateParams) {      
+  .controller('SuggestionlistCtrl', function ($scope, $filter, $q, $location, State, suggestions, $rootScope, Vote, $stateParams) {      
     $scope.search = {
       details: ''
     };
@@ -34,6 +34,11 @@ angular.module('idpMeetuplehApp')
       return position;
     };
 
+    $scope.addPlace = function () {
+      console.log('/suggestion/new/' + $stateParams.activity);
+      $location.path('/suggestion/new/' + $stateParams.activity);
+    };
+
     $scope.getVotes = function (place) {
       if (place.votes && place.votes.length > 0) {
         var score = 0;
@@ -52,21 +57,21 @@ angular.module('idpMeetuplehApp')
 
     $scope.upVote = function(place){
       if (place.userVote.$value === 1) {
-        Vote.removeVote(State.eventState.active, $stateParams.activity, place.details._id, userMD5);
+        Vote.removeVote(State.eventState.active, $stateParams.activity, place.details._id, $rootScope.currentUser.$id);
         return;
       }
 
-      Vote.addVote(State.eventState.active, $stateParams.activity, place.details._id, userMD5, 1);
+      Vote.addVote(State.eventState.active, $stateParams.activity, place.details._id, $rootScope.currentUser.$id, 1);
       place.userVote.$value = 1;
     };
 
     $scope.downVote = function(place){
       if (place.userVote.$value === -1) {
-        Vote.removeVote(State.eventState.active, $stateParams.activity, place.details._id, userMD5);
+        Vote.removeVote(State.eventState.active, $stateParams.activity, place.details._id, $rootScope.currentUser.$id);
         return;
       }
 
-      Vote.addVote(State.eventState.active, $stateParams.activity, place.details._id, userMD5, -1);
+      Vote.addVote(State.eventState.active, $stateParams.activity, place.details._id, $rootScope.currentUser.$id, -1);
       place.userVote.$value = -1;
     };    
 

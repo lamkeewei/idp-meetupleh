@@ -8,8 +8,8 @@ angular.module('idpMeetuplehApp')
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl',
         resolve: {
-          events: ['FbUser', 'userMD5', function(FbUser, md5) {
-            return FbUser.getUserEvents(md5);
+          events: ['FbUser', '$rootScope', function(FbUser, $rootScope) {
+            return FbUser.getUserEvents($rootScope.currentUser.$id);
           }]
         }
       });

@@ -59,16 +59,22 @@ angular.module('idpMeetuplehApp', [
     });
   })
 
+  .run(function(Notifications){
+    Notifications.initialize();
+  })
+
   .run(function($rootScope, State, $location){
-    $rootScope.$on('$stateChangeStart', function(event, toState){
+    $rootScope.$on('$stateChangeStart', function(event, toState){      
       var url = toState.url;
-      if ((url !== '/' || url !== '/event/new') && !State.eventState.active) {
-        return $location.path('/');
+      if (url !== '/event/new' && url !== '/' && !State.eventState.active) {
+        // return $location.path('/');
       }
     });
 
     // TODO: Fix this when have time. Should use stateChangeStart
     $rootScope.$on('$locationChangeStart', function(event, newState, oldState){ 
-      State.interceptBack(event, newState, oldState);
+      if (!$rootScope.currentUser) {
+        return $location.path('/login');
+      }
     });
   });

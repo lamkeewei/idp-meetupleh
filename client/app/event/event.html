@@ -9,9 +9,15 @@
 </material-toolbar>
 <material-toolbar class="material-theme-light-blue" layout-order-lg="1">
   <h2 class="material-toolbar-tools">
-    <material-button flex class="material-theme-light-blue">
+    <material-button flex class="material-theme-light-blue" ng-click="setTime()"
+      ng-repeat="timing in timings | orderBy: getTimeCount | limitTo: 1">      
       <span class="details-label">Time</span>
-      14 Oct
+      {{getDate(timing)}}
+    </material-button>
+
+    <material-button flex class="material-theme-light-blue" ng-click="setTime()" ng-show="timings.$value === null">
+      <span class="details-label">Time</span>
+      -
     </material-button>
 
     <material-button flex class="material-theme-light-blue">
@@ -28,13 +34,84 @@
 
 <div id="event-page-content" layout="vertical" layout-order-lg="3" flex layout-padding ng-switch on="flags.tabIndex">
   
-  <material-card ng-click="newSuggestion(1)" class="location-card" flex layout layout-align="center center">
+  <!-- First activity -->
+  <material-card ng-click="newSuggestion(1)" ng-hide="activities.one.length > 0" class="location-card" flex layout layout-align="center center">
     <material-button class="empty-placeholder">+ Add activity</material-button>
   </material-card>
-  <material-card ng-click="newSuggestion(2)" class="location-card" flex layout layout-align="center center">
+
+  <material-card ng-click="showSuggestionList(1)" ng-repeat="activity in activities.one | orderBy: sortVotes | limitTo:1" class="activity-card" flex layout="horizontal" layout-align="center center">
+    <div ng-hide="isTied(activities.one)" class="icon">
+      <h3>
+        <i class="fa fa-cutlery"></i>
+      </h3>
+    </div>
+    <div ng-hide="isTied(activities.one)" flex class="details" layout="vertical">
+      <material-button class="place">{{activity.details.name}}</material-button>      
+      <p><span class="label label-default">{{activities.one.length - 1}} other suggestions</span></p>
+    </div>
+
+    <div ng-show="isTied(activities.one)" class="icon warning">
+      <h3>
+        <i class="fa fa-exclamation-triangle"></i>
+      </h3>
+    </div>
+    <div ng-show="isTied(activities.one)" flex class="details warning" layout="vertical">
+      <material-button class="place">There's a tie!</material-button>      
+      <p><span class="label label-default">{{activities.one.length}} suggestions</span></p>
+    </div>
+  </material-card>
+  
+  <!-- Second activity -->
+  <material-card ng-click="newSuggestion(2)" ng-hide="activities.two.length > 0" class="location-card" flex layout layout-align="center center">
     <material-button class="empty-placeholder">+ Add activity</material-button>
   </material-card>
-  <material-card ng-click="newSuggestion(3)" class="location-card" flex layout layout-align="center center">
+
+  <material-card ng-click="showSuggestionList(2)" ng-repeat="activity in activities.two | orderBy: sortVotes | limitTo: 1" class="activity-card" flex layout layout-align="center center">
+    <div ng-hide="isTied(activities.two)" class="icon">
+      <h3>
+        <i class="fa fa-cutlery"></i>
+      </h3>
+    </div>
+    <div ng-hide="isTied(activities.two)" flex class="details" layout="vertical">
+      <material-button class="place">{{activity.details.name}}</material-button>      
+      <p><span class="label label-default">{{activities.two.length - 1}} other suggestions</span></p>
+    </div>
+
+    <div ng-show="isTied(activities.two)" class="icon warning">
+      <h3>
+        <i class="fa fa-exclamation-triangle"></i>
+      </h3>
+    </div>
+    <div ng-show="isTied(activities.two)" flex class="details warning" layout="vertical">
+      <material-button class="place">There's a tie!</material-button>      
+      <p><span class="label label-default">{{activities.two.length}} suggestions</span></p>
+    </div>
+  </material-card>
+
+  <!-- Third activity -->
+  <material-card ng-click="newSuggestion(3)" ng-hide="activities.three.length > 0" class="location-card" flex layout layout-align="center center">
     <material-button class="empty-placeholder">+ Add activity</material-button>
+  </material-card>
+
+  <material-card ng-click="showSuggestionList(3)" ng-repeat="activity in activities.three | orderBy: sortVotes | limitTo: 1" class="activity-card" flex layout layout-align="center center">
+    <div ng-hide="isTied(activities.three)" class="icon">
+      <h3>
+        <i class="fa fa-cutlery"></i>
+      </h3>
+    </div>
+    <div ng-hide="isTied(activities.three)" flex class="details" layout="vertical">
+      <material-button class="place">{{activity.details.name}}</material-button>      
+      <p><span class="label label-default">{{activities.three.length - 1}} other suggestions</span></p>
+    </div>
+
+    <div ng-show="isTied(activities.three)" class="icon warning">
+      <h3>
+        <i class="fa fa-exclamation-triangle"></i>
+      </h3>
+    </div>
+    <div ng-show="isTied(activities.three)" flex class="details warning" layout="vertical">
+      <material-button class="place">There's a tie!</material-button>      
+      <p><span class="label label-default">{{activities.three.length}} suggestions</span></p>
+    </div>
   </material-card>
 </div>

@@ -14,13 +14,17 @@ angular.module('idpMeetuplehApp')
       });
 
       attendees[organizer] = true;
-
-      return sync.$push({
+      var event = {
         title: title,
-        organizer: organizer,
-        date: date.getTime(),
+        organizer: organizer,    
+        date: {},    
         attendees: attendees
-      });
+      };
+
+      event.date[date.getTime() + '-morning'] = date.getTime();
+      event.date[date.getTime() + '-afternoon'] = date.getTime();
+      event.date[date.getTime() + '-evening'] = date.getTime();
+      return sync.$push(event);
     };
 
     this.getAllEvents = function(){

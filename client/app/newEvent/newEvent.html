@@ -1,14 +1,38 @@
-<material-toolbar class="material-theme-dark" layout-order-lg="1">
+<material-toolbar class="material-theme-dark" id="new-event-toolbar" layout-order-lg="1">
   <h2 class="material-toolbar-tools">
-    <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> Choose Participants</material-button>
+    <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> {{flags.menuTitle}}</material-button>
     <span flex></span>    
     <material-button class="material-theme-dark" ng-click="completeAddEvent()">
       Done
     </material-button>
   </h2>
+
+  <div ng-hide="flags.hide" layout-padding class="material-toolbar-tools dark">
+    <material-input-group ng-disabled="isDisabled" id="title-input">
+      <label>Event Title</label>
+      <material-input type="text" ng-model="event.title"></material-input>
+    </material-input-group>  
+  </div>
+
+  <div ng-hide="flags.hide" layout-padding class="material-toolbar-tools dark">
+    <material-input-group ng-disabled="isDisabled" id="date-input">
+      <label>Proposed Date</label>
+      <material-input type="text" ng-model="event.date" ng-blur="dateBlur()" ng-click="dateFocus()"></material-input>
+    </material-input-group>  
+    <material-button class="calendar-btn">
+      <i class="fa fa-calendar"></i>
+    </material-button>
+  </div>
+
+  <material-card id="date-autocomplete">
+    <material-button ng-click="selectQuickDate('Tomorrow')">Tomorrow</material-button>
+    <material-button ng-click="selectQuickDate('Next week')">Next week</material-button>
+    <material-button ng-click="selectQuickDate('Next month')">Next month</material-button>
+  </material-card>
+  
 </material-toolbar>
 
-<div id="contact-list-content" layout="vertical" layout-order-lg="3" flex layout-padding ng-switch on="flags.tabIndex">
+<div ng-show="flags.hide" id="contact-list-content" layout="vertical" layout-order-lg="3" flex layout-padding ng-switch on="flags.tabIndex">
   <material-input-group ng-disabled="isDisabled" class="search-field-group ">
     <label>Search for Contact...</label>
     <material-input type="text" ng-model="search.$"></material-input>

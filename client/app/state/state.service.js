@@ -14,11 +14,15 @@ angular.module('idpMeetuplehApp')
         oldState: '/suggestion/list',
         newState: '/place',
         redirect: '/event/id/$id'
-      }, {
-        oldState: '/suggestion/list',
-        newState: '/suggestion/new',
-        redirect: '/event/id/$id'
-      }, {
+      }, 
+
+      // {
+      //   oldState: '/suggestion/list',
+      //   newState: '/suggestion/new',
+      //   redirect: '/event/id/$id'
+      // }, 
+
+      {
         oldState: '/suggestion/new',
         redirect: '/event/id/$id'
       }, {

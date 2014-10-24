@@ -1,12 +1,18 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .service('Suggestion', function ($window, $firebase, $q, Place, Vote, userMD5) {
+  .service('Suggestion', function ($window, $firebase, $q, Place, Vote, $rootScope) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/suggestions');
 
-    this.addSuggestion = function(eventId, activity, placeId){
+    this.addSuggestion = function(eventId, activity, placeId){      
       var ref = this.baseRef.child(eventId).child(activity).child(placeId);
       var sync = $firebase(ref);
+
+      $rootScope.$emit('notification', 'new-suggestion', {
+        place: placeId,
+        activity: activity,
+        eventId: eventId
+      });
       return sync.$set(true);
     };
 
@@ -21,15 +27,23 @@ angular.module('idpMeetuplehApp')
         .then(function(places){
           var promises = [];          
           places.forEach(function(place){
-            var promise = Place.get({ id: place.$id }).$promise.then(function(details){
+            var d = $q.defer();
+
+            Place.get({ id: place.$id }).$promise.then(function(details){
               place.details = details;              
-            }).then(function(){
-              place.votes = Vote.getVotes(eventId, activity, place.$id);
-            }).then(function(){
-              place.userVote = Vote.getUserVote(eventId, activity, place.$id, userMD5);
+
+              Vote.getVotes(eventId, activity, place.$id).$loaded().then(function(votes){
+                place.votes = votes;
+
+                Vote.getUserVote(eventId, activity, place.$id, $rootScope.currentUser.$id).$loaded().then(function(userVote){
+                  place.userVote = userVote;
+
+                  d.resolve();
+                });
+              });
             });
 
-            promises.push(promise);
+            promises.push(d.promise);
           });
 
           $q.all(promises).then(function(){
@@ -42,7 +56,7 @@ angular.module('idpMeetuplehApp')
                 if (place.$id === event.key) {
                   place.details = Place.get({ id: place.$id });
                   place.votes = Vote.getVotes(eventId, activity, place.$id);
-                  place.userVote = Vote.getUserVote(eventId, activity, place.$id, userMD5);
+                  place.userVote = Vote.getUserVote(eventId, activity, place.$id, $rootScope.currentUser.$id);
                 }
               });
             }

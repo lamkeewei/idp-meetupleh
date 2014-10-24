@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .service('Vote', function ($window, $firebase, $q) {
+  .service('Vote', function ($window, $firebase, $q, $rootScope) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/votes');
 
     this.getVotes = function(eventId, activity, placeId){
@@ -12,6 +12,14 @@ angular.module('idpMeetuplehApp')
     this.addVote = function(eventId, activity, placeId, user, vote) {
       var ref = this.baseRef.child(eventId).child(activity).child(placeId).child(user);
       var sync = $firebase(ref);
+
+      $rootScope.$emit('notification', 'new-vote', {
+        eventId: eventId,
+        activity: activity,
+        placeId: placeId,        
+        vote: vote
+      });
+
       return sync.$set(vote);
     };
 

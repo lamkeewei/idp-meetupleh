@@ -35,10 +35,13 @@ angular.module('idpMeetuplehApp')
         // Store search state
         $scope.flags.searchLabel = 'Searching...';
         Place.query(function(places){
-          State.search.suggestion = places;
-          $scope.results = places;
           $scope.flags.searchDone = true;
           $scope.flags.searchLabel = 'New Search';
+
+          $timeout(function(){            
+            State.search.suggestion = places;
+            $scope.results = places;
+          }, 670);
         });
       } else {
         // Clear search state

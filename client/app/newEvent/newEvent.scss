@@ -1,3 +1,107 @@
+#title-input {
+  margin-top: -5px;
+  display: block;
+  width: 100%;
+  transform: translate3d(0,0,0);
+  
+  label {
+    color: rgba(255,255,255,0.5);
+    font-size: 16px;
+  }
+
+  input {
+    width: 100%;    
+    border-color: rgba(255,255,255,0.5);
+  }
+}
+
+#date-autocomplete {
+  position: absolute;
+  color: #3f51b5;  
+  visibility: hidden;
+  height: 40px;
+  border-radius: 3px;
+  background-color: rgba(255,255,255,0.9) !important;
+  margin: 18px 18px;
+  background-color: white;
+  font-size: 13px;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+  padding: 0px;
+  padding-left: 3px;
+  padding-right: 3px;
+
+  material-button {
+    display: inline-block;
+    height: 40px;   
+    margin: 0px;
+    padding: 10px;
+    padding-top: 5px;
+    border-radius: 0px;
+    background-color: transparent;
+    text-transform: none;
+    box-sizing: border-box;
+    border-right: solid 1px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+
+  material-button:last-child {
+    border-right: 0px;
+  }
+}
+
+#date-input {
+  margin-top: 25px;
+  display: block;
+  width: 100%;
+  transform: translate3d(0,0,0);
+  
+  label {
+    color: rgba(255,255,255,0.5);
+    font-size: 16px;
+  }
+
+  input {
+    width: 100%;    
+    border-color: rgba(255,255,255,0.5);
+  }
+
+}
+
+.calendar-btn {
+  margin-top: 50px;
+  width: 40px;
+  background-color: transparent !important;
+}
+
+#date-input.material-input-focused {
+  input {
+    border-color: #4fc3f7;
+  }
+
+  label {
+    color: #4fc3f7;
+  }
+}
+
+#title-input.material-input-focused {
+  input {
+    border-color: #4fc3f7;
+  }
+
+  label {
+    color: #4fc3f7;
+  }
+}
+
+#new-event-toolbar {
+  transition: all 0.4s ease-in-out;
+}
+
+#new-event-toolbar.show-title {
+  min-height: 260px;
+}
+
 #contact-list-content {
   .material-label {
     display: none;

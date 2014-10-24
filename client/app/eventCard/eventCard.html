@@ -1,7 +1,7 @@
 <material-card layout="horizontal" class="event-card" ng-click="viewEvent()">
   <div flex="30" class="date-block" layout-align="center">
-    <h1>{{details.date | date: 'd'}}</h1>
-    <p>{{details.date | date: 'MMMM'}}</p>
+    <h1>{{getDate() | date: 'd'}}</h1>
+    <p>{{getDate() | date: 'MMMM'}}</p>
   </div>
   <div class="event-details" layout="vertical" layout-align="left center" flex>
     <h3>{{details.title}}</h3>

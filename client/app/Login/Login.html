@@ -1,0 +1,15 @@
+<material-content flex id="login-container" class="material-theme-dark" layout="vertical" layout-align="center center">
+  <h1>let's meetup.</h1>
+
+  <material-whiteframe class="input-wrapper material-whiteframe-z3">
+    <input type="text" ng-model="user.email" ng-enter="login()" placeholder="email"/>
+  </material-whiteframe>
+
+  <material-whiteframe class="input-wrapper material-whiteframe-z3">
+    <input type="password" ng-model="user.password" ng-enter="login()" placeholder="password"/>
+  </material-whiteframe>
+  
+  <div>    
+    <material-button class="material-button-raised material-theme-light" ng-click="login()">Login</material-button>
+  </div>
+</material-content>
