@@ -54,6 +54,35 @@ exports.destroy = function(req, res) {
   });
 };
 
+exports.search = function (req, res) {
+  var query = req.body;
+  var keywords = query.keywords.toLowerCase().split(' ');
+
+  Place
+    .find({
+      'price.min': { $lt: query.price }
+    }, function(err, places){
+      if(err) { return handleError(res, err); }
+      places = _.filter(places, function(place){
+        var match = false;
+        var placeTags = place.tags;
+
+
+        placeTags.forEach(function(tag){
+          keywords.forEach(function(word){
+            if (_.contains(tag, word)) {
+              match = true;
+            }
+          });
+        });
+
+        return match;
+      });
+
+      return res.json(200, places);
+    });
+};
+
 function handleError(res, err) {
   return res.send(500, err);
 }

@@ -2,22 +2,17 @@
   <h2 class="material-toolbar-tools">
     <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> Event Page</material-button>
     <span flex></span>    
-    <material-button class="material-theme-dark" ng-click="completeAddEvent()">
-      <i class="fa fa-envelope"></i>
+    <material-button class="material-theme-dark" ng-click="showNotification()" >
+      <i class="fa fa-bell"></i>
+      <span id="mini-count" ng-show="newNotification">N</span>
     </material-button>
   </h2>
 </material-toolbar>
 <material-toolbar class="material-theme-light-blue" layout-order-lg="1">
   <h2 class="material-toolbar-tools">
-    <material-button flex class="material-theme-light-blue" ng-click="setTime()"
-      ng-repeat="timing in timings | orderBy: getTimeCount | limitTo: 1">      
-      <span class="details-label">Time</span>
-      {{getDate(timing)}}
-    </material-button>
-
-    <material-button flex class="material-theme-light-blue" ng-click="setTime()" ng-show="timings.$value === null">
-      <span class="details-label">Time</span>
-      -
+    <material-button flex class="material-theme-light-blue" ng-click="setTime()">      
+      <span class="details-label">{{time}}</span>
+      {{getConfirmedDate()}}
     </material-button>
 
     <material-button flex class="material-theme-light-blue">
@@ -42,7 +37,7 @@
   <material-card ng-click="showSuggestionList(1)" ng-repeat="activity in activities.one | orderBy: sortVotes | limitTo:1" class="activity-card" flex layout="horizontal" layout-align="center center">
     <div ng-hide="isTied(activities.one)" class="icon">
       <h3>
-        <i class="fa fa-cutlery"></i>
+        <i class="fa" ng-class="{'fa-cutlery': activity.details.category === 'food'}"></i>
       </h3>
     </div>
     <div ng-hide="isTied(activities.one)" flex class="details" layout="vertical">
@@ -52,7 +47,7 @@
 
     <div ng-show="isTied(activities.one)" class="icon warning">
       <h3>
-        <i class="fa fa-exclamation-triangle"></i>
+        <i class="fa fa-exclamation-triangle"></i>        
       </h3>
     </div>
     <div ng-show="isTied(activities.one)" flex class="details warning" layout="vertical">
@@ -69,7 +64,7 @@
   <material-card ng-click="showSuggestionList(2)" ng-repeat="activity in activities.two | orderBy: sortVotes | limitTo: 1" class="activity-card" flex layout layout-align="center center">
     <div ng-hide="isTied(activities.two)" class="icon">
       <h3>
-        <i class="fa fa-cutlery"></i>
+        <i class="fa" ng-class="{'fa-cutlery': activity.details.category === 'food'}"></i>
       </h3>
     </div>
     <div ng-hide="isTied(activities.two)" flex class="details" layout="vertical">
@@ -96,7 +91,7 @@
   <material-card ng-click="showSuggestionList(3)" ng-repeat="activity in activities.three | orderBy: sortVotes | limitTo: 1" class="activity-card" flex layout layout-align="center center">
     <div ng-hide="isTied(activities.three)" class="icon">
       <h3>
-        <i class="fa fa-cutlery"></i>
+        <i class="fa" ng-class="{'fa-cutlery': activity.details.category === 'food'}"></i>
       </h3>
     </div>
     <div ng-hide="isTied(activities.three)" flex class="details" layout="vertical">

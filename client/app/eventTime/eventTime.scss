@@ -96,15 +96,32 @@
     }
     
     .yes-btn,
-    .no-btn {
+    .no-btn,
+    {
       background-color: transparent;
       width: 40px;
       font-size: 14px;
+      font-weight: 900;
       color: rgba(0,0,0,0.4);
+      border-radius: 0px;
+    }
+
+    .confirm-btn {
+      color: rgba(0,0,0,0.4);
+      font-weight: 900;
+      background-color: transparent;
+    }
+
+    .confirm-btn.confirmed {
+      color: #2baf2b;
+    }
+    
+    .yes-btn {
+      border-left: solid 1px rgba(0,0,0,0.12);
     }
 
     .yes-btn.active {
-      color: #2baf2b;
+      color: #2baf2b;      
     }
 
     .no-btn.active {
@@ -140,4 +157,15 @@
 
 #choose-time-dialog {
   margin-top: 150px;
+}
+
+#confirmed-text {
+  color: #2baf2b;
+}
+
+.vertical-divider {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: rgba(0,0,0,0.5);
 }

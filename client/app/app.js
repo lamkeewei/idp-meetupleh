@@ -46,30 +46,19 @@ angular.module('idpMeetuplehApp', [
     };
   })
 
-  .value('userMD5', '64834fb98710c9c8b2d7cc5424903c8b')
-
-  .run(function ($rootScope, $location, Auth) {
-    // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function (event, next) {
-      Auth.isLoggedInAsync(function(loggedIn) {
-        if (next.authenticate && !loggedIn) {
-          $location.path('/login');
-        }
-      });
-    });
-  })
+  .value('userMD5', 'abc')
 
   .run(function(Notifications){
     Notifications.initialize();
   })
 
   .run(function($rootScope, State, $location){
-    $rootScope.$on('$stateChangeStart', function(event, toState){      
-      var url = toState.url;
-      if (url !== '/event/new' && url !== '/' && !State.eventState.active) {
-        // return $location.path('/');
-      }
-    });
+    // $rootScope.$on('$stateChangeStart', function(event, toState){      
+    //   var url = toState.url;
+    //   if (url !== '/event/new' && url !== '/' && !State.eventState.active) {
+    //     // return $location.path('/');
+    //   }
+    // });
 
     // TODO: Fix this when have time. Should use stateChangeStart
     $rootScope.$on('$locationChangeStart', function(event, newState, oldState){ 

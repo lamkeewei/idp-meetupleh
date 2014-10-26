@@ -1,0 +1,129 @@
+#bootstrap {
+  background-color: rgba(0,0,0,0.05);
+  .price-input {
+    text-align: center;
+    padding-top: 7.5px;    
+  }
+
+  #price-input-group {
+    padding-bottom: 5px;
+    border-bottom: solid 1px #c7c7c7;
+    margin-bottom: 7.5px;
+    height: 60px;
+  }
+
+  .price-label {
+    color: #999;
+    font-weight: 700;
+    padding-top: 12.5px;
+  }
+
+  .search-btn {
+    margin-top: 15px;
+  }
+
+  .found {
+    padding: 0px;
+    width: 100%;
+    background-color: white;
+    transform: translate3d(-120%,0,0);
+    transition: all 0.4s ease-in-out;
+  }
+
+  .found.complete {
+    transform: translate3d(0,0,0);
+  }
+
+  h3 {
+    padding: 0px 15px;
+  }
+
+  .image {
+    height: 200px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.1);
+    background-size: 100%;
+    background-position: center center;
+  }
+
+  .details {
+    padding: 15px;
+    font-size: 12px;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
+  .next-btn {
+    background-color: #90a4ae;
+    color: white;
+    font-weight: 300;
+    border-radius: 0px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+}
+
+#bootstrap-list {
+
+  material-item-content {
+
+    small {
+      padding-right: 10px;
+      color: rgba(0,0,0,0.5);
+    }
+
+    .material-tile-left {    
+      padding-left: 10px;
+      padding-right: 10px;
+      h3 {
+        background-color: rgba(0,0,0,0.2);
+        height: 30px;
+        width: 30px;
+        border-radius: 15px;
+
+        .fa {
+          padding-left: 9px;
+          padding-top: 8px;
+          color: white;
+          font-size: 14px;
+        }
+      }
+
+      h3.success {
+        background-color: #72d572;
+      }
+
+      h3.dropped {
+        background-color: #e84e40;
+      }
+
+      h3.no-reply {
+        background-color: #ffc107;
+      }
+    }
+
+    .material-tile-content {
+      font-size: 14px;
+      padding-left: 25px;
+    }
+  }
+}
+
+#complete-btn {  
+  width: 100%;
+  position: fixed;
+  transition: all 0.4s ease-in-out;
+  bottom: -50px;
+  left: 0;
+  height: 50px;
+  background-color: #ccff90;
+  border-radius: 0px;
+  color: #259b24;
+  font-weight: 700;
+}
+
+#complete-btn.shown {
+  bottom: 0px;
+}

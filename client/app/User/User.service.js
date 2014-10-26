@@ -4,6 +4,11 @@ angular.module('idpMeetuplehApp')
   .service('User', function ($window, $rootScope, $q, $firebase) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com');
 
+    this.getUser = function (userId) {
+      var ref = this.baseRef.child('users').child(userId);
+      return $firebase(ref).$asObject();      
+    };
+
     this.login = function (userId) {
       var deferred = $q.defer();
 

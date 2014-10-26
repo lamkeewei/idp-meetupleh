@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 var PlaceSchema = new Schema({
   name: String,
+  category: String,
   address: String,
   imageUrl: String,
   location: {
@@ -17,7 +18,8 @@ var PlaceSchema = new Schema({
       ratings: Number,
       review: String
     }
-  ]
+  ],
+  tags: [String]
 });
 
 module.exports = mongoose.model('Place', PlaceSchema);

@@ -1,8 +1,35 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .service('Event', function ($window, $firebase, $q) {
+  .service('Event', function ($window, $firebase, $q, User) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/events');
+
+    this.setBootstrap = function(eventId, step){
+      var ref = this.baseRef.child(eventId).child('bootstrap');
+      return $firebase(ref).$set(step);
+    };
+
+    this.finishBootstrap = function (eventId) {
+      var ref = this.baseRef.child(eventId).child('bootstrap');
+      return $firebase(ref).$remove();
+    };
+
+    this.confirmSlot = function(timings, timing, eventId){
+      var self = this;
+
+      timings.forEach(function(t){
+        var ref = self.baseRef.child(eventId).child('date').child(t.$id);
+        $firebase(ref).$set(false);
+      });            
+      
+      var selectedRef = this.baseRef.child(eventId).child('date').child(timing.$id);
+      return $firebase(selectedRef).$set(true);
+    };
+
+    this.dropUser = function(eventId, userId){
+      var ref = this.baseRef.child(eventId).child('attendees').child(userId);
+      return $firebase(ref).$remove();
+    };
 
     this.addEvent = function (title, organizer, contacts, date) {
       var sync = $firebase(this.baseRef);
@@ -21,9 +48,9 @@ angular.module('idpMeetuplehApp')
         attendees: attendees
       };
 
-      event.date[date.getTime() + '-morning'] = date.getTime();
-      event.date[date.getTime() + '-afternoon'] = date.getTime();
-      event.date[date.getTime() + '-evening'] = date.getTime();
+      event.date[date.getTime() + '-morning'] = false;
+      event.date[date.getTime() + '-afternoon'] = false;
+      event.date[date.getTime() + '-evening'] = false;
       return sync.$push(event);
     };
 
@@ -32,8 +59,18 @@ angular.module('idpMeetuplehApp')
       return sync.$asArray();
     };
 
+    this.getEventAttendees = function(eventId){
+      var ref = this.baseRef.child(eventId).child('attendees');
+      return $firebase(ref).$asArray();      
+    };
+
     this.getEvent = function(eventId) {
       var sync = $firebase(this.baseRef.child(eventId));
       return sync.$asObject();
+    };
+
+    this.unconfirm = function (timing, eventId) {
+      var ref = this.baseRef.child(eventId).child('date').child(timing.$id);
+      return $firebase(ref).$set(false);
     };
   });

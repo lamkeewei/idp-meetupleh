@@ -41,4 +41,11 @@ angular.module('idpMeetuplehApp')
     $scope.getFirstCharacter = function(str){
       return str.charAt(0);
     };
+
+    $scope.fmtContact = function(contact){
+      var first = contact.substring(0, 4);
+      var second = contact.substring(4);
+
+      return first + ' ' + second;
+    };
   });

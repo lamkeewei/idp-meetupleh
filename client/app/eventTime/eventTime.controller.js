@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('EventtimeCtrl', function ($scope, $location, Time, timings, $timeout, $materialDialog, $stateParams, $rootScope, availabilities) {    
+  .controller('EventtimeCtrl', function ($scope, $location, Time, timings, $timeout, $materialDialog, $stateParams, $rootScope, availabilities, event, Event) {        
+    $scope.event = event;
     $scope.availabilities = availabilities;
     $scope.timings = timings;
 
@@ -16,6 +17,10 @@ angular.module('idpMeetuplehApp')
 
     $scope.back = function(){
       $location.path('/event/id/' + $stateParams.id);
+    };
+
+    $scope.isOrganizer = function(){
+      return $scope.event.organizer === $rootScope.currentUser.$id;
     };
 
     $scope.getTimeslotAvailable = function(timing){
@@ -36,7 +41,22 @@ angular.module('idpMeetuplehApp')
     };
 
     $scope.sortTime = function(timing){
-      return -1 * $scope.getTimeslotAvailable(timing);
+      var time = $scope.getTime(timing);
+      var val = 0;
+
+      switch(time) {
+        case 'morning':
+          val = 1;
+          break;
+        case 'afternoon':
+          val = 2;
+          break;
+        case'evening':
+          val = 3;
+          break;
+      }
+
+      return Number($scope.getDay(timing)) + val;
     };
 
     $scope.getDay = function(timing) {
@@ -138,5 +158,15 @@ angular.module('idpMeetuplehApp')
 
     $scope.hide = function(){      
       $materialDialog.hide();
+    };
+
+    $scope.confirmSlot = function(timing){
+      if (timing.$value) {
+        Event.unconfirm(timing, $stateParams.id);
+        return;
+      }
+
+      timing.$value = true;
+      Event.confirmSlot($scope.timings, timing, $stateParams.id);
     };
   });

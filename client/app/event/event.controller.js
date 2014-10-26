@@ -1,15 +1,91 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('EventCtrl', function ($scope, $filter, $location, $window, State, $stateParams, event, activityOne, activityTwo, activityThree, timings) {    
+  .controller('EventCtrl', function ($scope, Event, Bootstrap, $timeout, $materialSidenav, $filter, $location, $window, State, $stateParams, event, activityOne, activityTwo, activityThree, timings, $rootScope) {    
     State.reset();        
+    if (event.bootstrap) {
+      return $location.path('/bootstrap/' + $stateParams.id);
+    }
+
+    $rootScope.$emit('load-notification', $stateParams.id);
     $scope.event = event;
     $scope.timings = timings;
+    $scope.time = 'Time';
 
     $scope.activities = {
       one: activityOne,
       two: activityTwo,
       three: activityThree
+    };
+
+    $scope.needHelp = function(){
+      var condition = $scope.activities.one.length === 0 
+        && $scope.activities.two.length === 0 
+        && $scope.activities.three.length === 0;
+
+      var threeDaysLater = $window.moment().add(3, 'days').toDate().getTime();
+      var min = Number.MAX_VALUE;
+
+      Object.keys($scope.event.date).forEach(function(t){        
+        var time = Number(t.split('-')[0]);
+        if (time < min) {
+          min = time;
+        }
+      });
+
+      var condition = condition && threeDaysLater >= min;
+
+      if (condition && !State.bootstrap.shown) {
+        swal({ 
+          title: 'Fix Your Outing?', 
+          text: 'Your outing looks a bit stale and time is running out!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#ffc107', 
+          confirmButtonText: 'Yes, save me!', 
+          cancelButtonText: "Nope, I'm fine!",
+          closeOnConfirm: false,
+          closeOnCancel: true 
+        }, function(isConfirm) {           
+          State.bootstrap.shown = true;
+
+          if (isConfirm) {
+            swal({
+              title: "Let's go!",
+              timer: '1400',
+              type: 'success'
+            });
+
+            $timeout(function() {
+              Event.setBootstrap($stateParams.id, 1).then(function(){
+                Bootstrap.intialize($stateParams.id);
+                
+                $location.path('/bootstrap/' + $stateParams.id);                
+              });
+            }, 1700);
+          }
+        });
+      }
+    };
+
+    $scope.needHelp();
+
+    $scope.showNotification = function(){      
+      $rootScope.$emit('open-notification', $stateParams.id);
+      $materialSidenav('right').toggle();
+    };
+
+    $scope.getMostCount = function(){
+      var max = 0;
+      $scope.timings.forEach(function(t){
+        var count = $scope.getTimeCount(t);
+
+        if (count > max) {
+          max = count;
+        } 
+      });
+
+      return max;
     };
 
     $scope.getVotes = function (place) {
@@ -29,7 +105,11 @@ angular.module('idpMeetuplehApp')
 
       $scope.timings.forEach(function(t){
         if (t.$id === timing.$id) {
-          count++;
+          Object.keys(t).forEach(function(key){
+            if (t[key] === 'yes') {
+              count++;
+            }
+          });
         }
       });
 
@@ -104,5 +184,24 @@ angular.module('idpMeetuplehApp')
       var arr = timing.$id.split('-');      
 
       return $filter('date')(arr[0], 'd MMM');
+    };
+
+    $scope.getConfirmedDate = function(){
+      var date = '-';
+      Object.keys($scope.event.date).forEach(function(key){
+        var value = $scope.event.date[key];
+
+        if (value) {
+          var dateStr = Number(key.split('-')[0]);
+          $scope.time = key.split('-')[1];
+          date = $filter('date')(dateStr, 'd MMM');
+        }
+      });
+
+      if (date === '-') {
+        $scope.time = 'Time';
+      }
+
+      return date;
     };
   });

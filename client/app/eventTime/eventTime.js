@@ -14,6 +14,10 @@ angular.module('idpMeetuplehApp')
 
           availabilities: ['$stateParams', 'Time', function($stateParams, Time){
             return Time.getUserAvailabilities($stateParams.id).$loaded();
+          }],
+
+          event: ['Event', '$stateParams', function(Event, $stateParams){
+            return Event.getEvent($stateParams.id).$loaded();
           }]
         }
       });

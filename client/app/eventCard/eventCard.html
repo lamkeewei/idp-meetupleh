@@ -1,7 +1,8 @@
 <material-card layout="horizontal" class="event-card" ng-click="viewEvent()">
   <div flex="30" class="date-block" layout-align="center">
     <h1>{{getDate() | date: 'd'}}</h1>
-    <p>{{getDate() | date: 'MMMM'}}</p>
+    <p ng-show="getDate() !== '-'">{{getDate() | date: 'MMMM'}}</p>
+    <p ng-hide="getDate() !== '-'">{{'undecided' | uppercase}}</p>
   </div>
   <div class="event-details" layout="vertical" layout-align="left center" flex>
     <h3>{{details.title}}</h3>

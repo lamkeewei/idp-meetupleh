@@ -2,6 +2,29 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+#dismiss-notification {
+  background-color: transparent;
+  font-size: 16px;
+
+  button {
+    text-align: left;
+  }
+
+  .fa {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+#notification-side {
+  max-width: 80%;
+  width: 80%;
+}
+
+material-backdrop {
+  background-color: rgba(0,0,0,0.7);
+}
+
 .material-theme-black {
   background-color: rgba(0,0,0,0.8);
   color: white;
@@ -17,4 +40,45 @@ body {
 
 material-card {
   outline: none !important;
+}
+
+#notifications-list {
+  material-item {
+    outline: none;
+  }
+  
+  material-item-content.new {
+    background-color: #e7e9fd;    
+  }
+
+  material-item-content {
+    transition: all 0.6s ease-in-out;
+
+    .material-tile-content {
+      font-size: 12px;
+      text-align: center;
+
+      h3 {
+        margin-bottom: 0px;
+      }
+    }
+
+    .material-tile-left h3 {
+      font-weight: 300;
+      width: 30px;
+      height: 30px;
+      padding-top: 6px;
+      border-radius: 15px;
+      color: white;
+      background-color: rgba(0,0,0,0.25);
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.sweet-alert {
+  padding-bottom: 50px;
+  margin-top: -210px !important;
 }

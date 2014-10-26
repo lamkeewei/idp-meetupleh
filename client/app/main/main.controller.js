@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('MainCtrl', function ($scope, userMD5, $materialSidenav, $location, events) {    
+  .controller('MainCtrl', function ($scope, userMD5, $materialSidenav, $location, events, State) {    
     $scope.events = events;
+    State.bootstrap.shown = false;
 
     $scope.flags = {
       tabIndex: 0

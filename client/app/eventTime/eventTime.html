@@ -40,16 +40,25 @@
       <material-card ng-repeat="timing in timings | orderBy: sortTime" layout="horizontal" layout-align="center center">
         <div flex class="details">          
           <h3>{{getDay(timing) | date: 'dd MMM yy'}} <small>({{getTime(timing)}})</small></h3>
-          <p>{{getTimeslotAvailable(timing)}} people available</p>
+          <p>            
+            {{getTimeslotAvailable(timing)}} people available
+            <span ng-show="timing.$value && !isOrganizer()" id="confirmed-text">
+              <span class="vertical-divider">|</span><i class="fa fa-check-circle"></i> Confirmed
+            </span>
+          </p>
         </div>
 
-        <material-button class="no-btn" ng-class="{'active': getUserAvailability(timing) === -1 }" ng-click="setAvailability(timing, 'no')">
+        <material-button ng-show="!isOrganizer()" class="no-btn" ng-class="{'active': getUserAvailability(timing) === -1 }" ng-click="setAvailability(timing, 'no')">
           <!-- <i class="fa fa-times-circle-o"></i> -->
           No
         </material-button>
-        <material-button class="yes-btn" ng-class="{'active': getUserAvailability(timing) === 1 }" ng-click="setAvailability(timing, 'yes')">
+        <material-button ng-show="!isOrganizer()" class="yes-btn" ng-class="{'active': getUserAvailability(timing) === 1 }" ng-click="setAvailability(timing, 'yes')">
           <!-- <i class="fa fa-check-circle-o"></i> -->
           Yes
+        </material-button>
+
+        <material-button ng-class="{'confirmed': timing.$value}" ng-click="confirmSlot(timing)" ng-show="isOrganizer()" class="confirm-btn">
+          Confirm
         </material-button>
       </material-card>
     </material-content>

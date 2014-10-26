@@ -16,6 +16,7 @@
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+      <link rel="stylesheet" href="bower_components/sweetalert/lib/sweet-alert.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -30,7 +31,8 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div layout="horizontal">  
+    <div id="audio"></div>
+    <div layout="horizontal" id="root-wrapper" ng-controller="NotificationsCtrl">  
       <material-sidenav class="material-sidenav-left material-whiteframe-z2" component-id="left">
         <material-toolbar class="material-theme-dark">
           <h1 class="material-toolbar-tools">Options</h1>
@@ -43,6 +45,30 @@
       <material-content flex style="height: 100vh">
         <div ui-view="" layout="vertical" layout-fill></div>          
       </material-content>
+
+      <material-sidenav id="notification-side" class="material-sidenav-left material-whiteframe-z2" component-id="right" layout="vertical">
+        <material-toolbar class="material-theme-dark">
+          <material-button ng-click="close()" id="dismiss-notification" class="material-toolbar-tools">
+            <i class="fa fa-chevron-left"></i> Notifications
+          </material-button>
+        </material-toolbar>
+        <material-content flex>
+          <material-list id="notifications-list">
+            <material-item ng-click="goToNotification(notification)" ng-repeat="notification in notifications | orderBy: '-timestamp'">
+              <material-item-content ng-class="{'new': !notification.isSeen}">
+                <div class="material-tile-left">
+                    <h3>{{getFirstCharacter(notification)}}</h3>
+                </div>
+                <div class="material-tile-content">
+                  <h3>{{getText(notification)}}</h3>
+                </div>
+              </material-item-content>
+              <material-divider></material-divider>
+            </material-item>
+
+          </material-list>
+        </material-content>
+      </material-sidenav>
     </div>    
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -83,6 +109,7 @@
       <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
       <script src="bower_components/moment/moment.js"></script>
       <script src="bower_components/blueimp-md5/js/md5.js"></script>
+      <script src="bower_components/sweetalert/lib/sweet-alert.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -94,6 +121,7 @@
           <script src="app/Login/Login.controller.js"></script>
           <script src="app/Login/Login.js"></script>
           <script src="app/Notifications/Notifications.service.js"></script>
+          <script src="app/Notifications/notifications.controller.js"></script>
           <script src="app/Suggestion/Suggestion.service.js"></script>
           <script src="app/Time/Time.service.js"></script>
           <script src="app/User/User.service.js"></script>
@@ -103,6 +131,9 @@
           <script src="app/account/signup/signup.controller.js"></script>
           <script src="app/admin/admin.controller.js"></script>
           <script src="app/admin/admin.js"></script>
+          <script src="app/bootstrap/Bootstrap.service.js"></script>
+          <script src="app/bootstrap/bootstrap.controller.js"></script>
+          <script src="app/bootstrap/bootstrap.js"></script>
           <script src="app/event/Event.service.js"></script>
           <script src="app/event/event.controller.js"></script>
           <script src="app/event/event.js"></script>

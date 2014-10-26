@@ -4,6 +4,7 @@ angular.module('idpMeetuplehApp')
   .service('State', function ($location) {
     this.search = {};
     this.eventState = {};
+    this.bootstrap = {}
 
     this.intercepts = [
       {

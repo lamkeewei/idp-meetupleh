@@ -30,8 +30,8 @@
       <div class="details-bar" layout="horizontal" class="layout-padding">
         <div flex>
           <ul>
-            <li><i class="fa fa-money"></i>$30 - $50</li>
-            <li><i class="fa fa-phone"></i><a href="tel:65336333">6533 6333</a></li>
+            <li><i class="fa fa-money"></i>${{place.price.min}} - ${{place.price.max}}</li>
+            <li><i class="fa fa-phone"></i><a href="tel:65336333">{{fmtContact(place.contact)}}</a></li>
             <li><i class="fa fa-clock-o"></i>6:00PM - 7:00PM</li>
           </ul>
         </div>
@@ -39,10 +39,7 @@
       </div>
       
       <div class="tags-bar">
-        <span class="tags match">German</span>
-        <span class="tags match">Sausages</span>
-        <span class="tags">Beer</span>
-        <span class="tags">Sports Bar</span>
+        <span class="tags" ng-repeat="tag in place.tags">{{tag}}</span>
       </div>
       
       <material-divider></material-divider>      

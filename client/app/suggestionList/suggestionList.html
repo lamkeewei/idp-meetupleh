@@ -15,7 +15,7 @@
   </material-input-group>
 
   <material-content flex>
-    <material-card ng-repeat="suggestion in suggestions | orderBy: sortVotes | filter: search" class="suggestion-card" layout="vertical">
+    <material-card ng-click="showDetails(suggestion)" ng-repeat="suggestion in suggestions | orderBy: sortVotes | filter: search" class="suggestion-card" layout="vertical">
       <div layout="horizontal" layout-align="center center" layout-padding class="title-bar">
         <div class="num-label-wrapper">
           <h3 class="num-label">{{getRank(suggestion)}}</h3>
@@ -33,11 +33,11 @@
       </div>
 
       <div layout="horizontal">
-        <material-button class="suggestion-btn vote-up" ng-class="{'voted': suggestion.userVote.$value > 0}" flex ng-click="upVote(suggestion)">
+        <material-button class="suggestion-btn vote-up" ng-class="{'voted': suggestion.userVote.$value > 0}" flex ng-click="upVote(suggestion, $event)">
           <i class="fa fa-chevron-up"></i> Vote Up
         </material-button>
 
-        <material-button class="suggestion-btn vote-down" ng-class="{'voted': suggestion.userVote.$value < 0}" flex ng-click="downVote(suggestion)">
+        <material-button class="suggestion-btn vote-down" ng-class="{'voted': suggestion.userVote.$value < 0}" flex ng-click="downVote(suggestion, $event)">
           <i class="fa fa-chevron-down"></i> Vote Down
         </material-button>
       </div>

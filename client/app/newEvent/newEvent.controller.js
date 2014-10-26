@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('NeweventCtrl', function ($scope, $location, State, contacts, Event, userMD5, FbUser, $timeout, $window) {    
+  .controller('NeweventCtrl', function ($scope, $location, $filter, State, contacts, Event, $rootScope, FbUser, $timeout, $window) {    
     $scope.back = function(){
       State.back();
     };
@@ -15,6 +15,19 @@ angular.module('idpMeetuplehApp')
     };
     $scope.search = {};
     $scope.contacts = contacts;
+
+    $scope.$watch('flags.date', function(newVal){
+      if (newVal) {
+        $scope.event.dateValue = $window.moment(newVal);
+        $scope.event.date = $filter('date')(newVal, 'dd/MM/yy');
+      }
+    });
+
+    $scope.openDatePicker = function(){
+      $scope.$evalAsync(function(){
+        document.getElementById('new-event-date').click();
+      });
+    }
 
     $scope.completeAddEvent = function() {
       if (!$scope.event.title) {
@@ -39,7 +52,7 @@ angular.module('idpMeetuplehApp')
         return;
       }
 
-      Event.addEvent($scope.event.title, userMD5, $scope.contacts, $scope.event.dateValue.toDate())
+      Event.addEvent($scope.event.title, $rootScope.currentUser.$id, $scope.contacts, $scope.event.dateValue.toDate())
         .then(function(ref){
           var name = ref.name();
           State.eventState.active = name;
@@ -50,7 +63,7 @@ angular.module('idpMeetuplehApp')
             }
           });
 
-          FbUser.addUserEvent(userMD5, name);
+          FbUser.addUserEvent($rootScope.currentUser.$id, name);
 
           $location.path('/event/id/' + name);
         });

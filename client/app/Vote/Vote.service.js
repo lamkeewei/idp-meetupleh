@@ -14,6 +14,7 @@ angular.module('idpMeetuplehApp')
       var sync = $firebase(ref);
 
       $rootScope.$emit('notification', 'new-vote', {
+        user: $rootScope.currentUser,
         eventId: eventId,
         activity: activity,
         placeId: placeId,        

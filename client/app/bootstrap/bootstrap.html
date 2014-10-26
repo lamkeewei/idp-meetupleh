@@ -1,0 +1,73 @@
+<material-toolbar class="material-theme-dark" layout-order-lg="1">
+  <h2 class="material-toolbar-tools">
+    <material-button ng-click="back()" class="material-theme-dark">
+      <i class="fa fa-chevron-left"></i> Fix My Outing
+    </material-button>
+    <span flex></span>    
+  </h2>
+</material-toolbar>
+
+<div id="bootstrap" ng-show="event.bootstrap === 1" layout="vertical" layout-order-lg="3" flex layout-padding>
+  <div id="price-input-group" layout>
+    <div flex="25" layout layout-align="left center">
+      <span class="price-label">Min. Budget</span>
+    </div>
+    <material-slider flex ng-model="color.blue" min="10" max="200" aria-label="blue" id="blue-slider">
+    </material-slider>
+    <div flex="15" layout layout-align="center center">
+      $<input type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider" class="price-input">
+    </div>
+  </div>
+
+  <material-button ng-click="search()" class="search-btn material-theme-dark">Find a Place Now</material-button>
+  <material-content  id="search-result" flex layout="vertical" layout-align="center center">
+    <material-card ng-repeat="place in places | limitTo: 1" class="found" layout="vertical"
+      ng-class="{'complete': flags.searchDone}">
+      <div>
+        <h3>{{place.name}}</h3>
+      </div>
+      <div class="image"
+        ng-style="{'background-image':'url(' + place.imageUrl + ')'}">></div>
+      <div class="details">
+        <p>
+          <a href="">
+            <i class="fa fa-map-marker"></i> {{place.address}}
+          </a>          
+        </p>
+      </div>
+
+      <material-button class="next-btn" ng-click="next(place)">Next</material-button>
+    </material-card>
+  </material-content>
+</div>
+
+<div flex ng-show="event.bootstrap > 1">
+  <material-content id="contact-result" flex layout="vertical" layout-padding>
+    <material-list id="bootstrap-list">
+      <material-item ng-repeat="user in bootstrap">
+        <material-item-content>
+          <div class="material-tile-left">
+              <h3 ng-class="{'success': user.$value === 1, 'no-reply': user.$value === 2, 'dropped': user.$value === 3}">
+                <i ng-show="user.$value === 0" class="fa fa-phone"></i>
+                <i ng-show="user.$value === 1" class="fa fa-thumbs-up"></i>
+                <i ng-show="user.$value === 2" class="fa fa-warning"></i>
+                <i ng-show="user.$value === 3" class="fa fa-thumbs-down"></i>
+              </h3>
+          </div>
+          <div class="material-tile-content">
+            <h3>
+              {{ user.user.name.firstName }} {{ user.user.name.lastName }}              
+            </h3>
+          </div>
+          
+          <div>
+            <small>{{getStatus(user.$value)}}</small>
+          </div>
+        </material-item-content>
+        <material-divider></material-divider>
+      </material-item>
+    </material-list>
+  </material-content>
+
+  <material-button id="complete-btn" ng-class="{'shown': allCompleted()}" ng-click="complete()">Complete Fix My Outing</material-button>
+</div>

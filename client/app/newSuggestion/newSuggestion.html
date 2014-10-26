@@ -2,9 +2,6 @@
   <h2 class="material-toolbar-tools">
     <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> New Suggestion</material-button>
     <span flex></span>    
-    <material-button class="material-theme-dark" ng-click="completeAddEvent()">
-      <i class="fa fa-envelope"></i>
-    </material-button>
   </h2>
 </material-toolbar>
 
@@ -12,23 +9,23 @@
     <div id="search-controls" ng-hide="flags.defaultHidden" ng-class="{ 'controls-hidden': flags.isSearching }">      
       <material-input-group ng-disabled="isDisabled" class="search-field-group ">
         <label>Keywords...</label>
-        <material-input type="text"></material-input>
+        <material-input type="text" ng-model="searchParams.keywords"></material-input>
       </material-input-group>    
       
        <div id="price-input-group" layout>
         <div flex="15" layout layout-align="left center">
           <span class="price-label">Price</span>
         </div>
-        <material-slider flex ng-model="color.blue" min="10" max="200" aria-label="blue" id="blue-slider">
+        <material-slider flex ng-model="searchParams.price" min="10" max="200" id="blue-slider">
         </material-slider>
         <div flex="15" layout layout-align="center center">
-          $<input type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider" class="price-input">
+          $<input type="number" ng-model="searchParams.price" class="price-input">
         </div>
       </div>
 
       <material-input-group ng-disabled="isDisabled" class="search-field-group ">
         <label>Enter area...</label>
-        <material-input type="text" ng-model="search.area" ng-click="selectArea($event)" ng-readonly="true"></material-input>
+        <material-input type="text" ng-model="searchParams.area" ng-click="selectArea($event)" ng-readonly="true"></material-input>
       </material-input-group>
 
       <material-content></material-content>
@@ -43,7 +40,7 @@
 
     <material-divider ng-show="flags.searchDone"></material-divider>    
     <material-content id="results-area" flex ng-show="flags.searchDone"> 
-      <material-subheader>Found 2 places:</material-subheader> 
+      <material-subheader>Found {{results.length}} places:</material-subheader> 
       <material-card ng-repeat="result in results" class="search-results" layout="vertical" ng-click="showDetails(result)">
         <div class="image-wrapper"
           ng-style="{'background-image':'url(' + result.imageUrl + ')'}">

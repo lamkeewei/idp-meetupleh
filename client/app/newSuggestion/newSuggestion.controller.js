@@ -5,6 +5,10 @@ angular.module('idpMeetuplehApp')
     $scope.back = function(){
       State.back();
     };
+
+    $scope.searchParams = {
+      price: 20
+    };
     
     $scope.flags = {
       isSearching: false,
@@ -28,13 +32,17 @@ angular.module('idpMeetuplehApp')
     };
 
     $scope.searchPlace = function(){
+      if (!$scope.searchParams.keywords || !$scope.searchParams.price || !$scope.searchParams.area) {
+        return;
+      }
+
       $scope.flags.defaultHidden = false;
       $scope.flags.isSearching = !$scope.flags.isSearching;
 
       if ($scope.flags.isSearching) {
         // Store search state
         $scope.flags.searchLabel = 'Searching...';
-        Place.query(function(places){
+        Place.search($scope.searchParams, function(places){
           $scope.flags.searchDone = true;
           $scope.flags.searchLabel = 'New Search';
 
@@ -53,7 +61,7 @@ angular.module('idpMeetuplehApp')
     };    
 
     $scope.selectArea = function(event){
-      $scope.search.area = 'Clarke Quay';
+      $scope.searchParams.area = 'Clarke Quay';
     };
 
     $scope.showDetails = function(place){

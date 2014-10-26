@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .service('Time', function ($firebase, $window, $q) {
+  .service('Time', function ($firebase, $window, $q, $rootScope) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/');
 
     this.getEventTimes = function(eventId){
@@ -19,7 +19,7 @@ angular.module('idpMeetuplehApp')
         timing: timing
       });
 
-      return $firebase(ref).$set(date);
+      return $firebase(ref).$set(false);
     };
 
     this.setAvailability = function (eventId, timeslot, userId, available) {

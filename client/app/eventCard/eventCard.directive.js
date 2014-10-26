@@ -15,9 +15,12 @@ angular.module('idpMeetuplehApp')
         };
 
         scope.getDate = function(){
-          var date = 0;
+          var date = '-';
           Object.keys(scope.details.date).forEach(function(d, i){
-            date = scope.details.date[d];
+            var selected = scope.details.date[d];
+            if (selected) {
+              date = Number(d.split('-')[0]);
+            }
           });
 
           return date;

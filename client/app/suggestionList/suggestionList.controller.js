@@ -51,11 +51,17 @@ angular.module('idpMeetuplehApp')
       }
     };
 
+    $scope.showDetails = function(suggestion){
+      $location.path('place/' + $stateParams.activity + '/' + suggestion.details._id);
+    };
+
     $scope.sortVotes = function(place){
       return -1 * $scope.getVotes(place);
     };
 
-    $scope.upVote = function(place){
+    $scope.upVote = function(place, event){
+      event.stopPropagation();
+      event.preventDefault();      
       if (place.userVote.$value === 1) {
         Vote.removeVote(State.eventState.active, $stateParams.activity, place.details._id, $rootScope.currentUser.$id);
         return;
@@ -65,7 +71,9 @@ angular.module('idpMeetuplehApp')
       place.userVote.$value = 1;
     };
 
-    $scope.downVote = function(place){
+    $scope.downVote = function(place, event){
+      event.stopPropagation();
+      event.preventDefault();
       if (place.userVote.$value === -1) {
         Vote.removeVote(State.eventState.active, $stateParams.activity, place.details._id, $rootScope.currentUser.$id);
         return;
