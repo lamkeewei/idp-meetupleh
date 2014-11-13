@@ -20,8 +20,55 @@
   }
 }
 
+#event-info-card {
+  background-color: white;
+  min-height: 175px;
+  padding: 0px;
+  border-radius: 5px;
+
+  .info-btn {
+    font-weight: 300;
+    font-size: 13px;
+    background-color: transparent;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-transform: none;
+    border-bottom: solid 1px rgba(0,0,0,0.1);
+    color: #3f51b5 !important;
+
+    .fa {
+      color: rgba(0,0,0,0.7);
+      display: inline-block;
+      width: 30px;
+      margin-right: 10px;
+    }
+
+    .fa-chevron-right {
+      float: right;
+      width: auto;
+      margin-right: 0px;
+      margin-top: 5px;
+    }
+
+    button {      
+      text-align: left;
+    }
+  }
+
+  .info-btn:nth-child(2) {
+    margin-bottom: 2px;
+  }
+}
+
+
 #event-page-content {
   background-color: rgba(0,0,0,0.05);
+  
+  .material-subheader {
+    background-color: transparent;
+    color: #3f51b5 !important;
+  }
 
   .empty-placeholder {
     color: rgba(0,0,0,0.5);
@@ -30,10 +77,12 @@
 
   .location-card {
     background-color: white;
+    min-height: 125px;
   }
 
   .activity-card {
     background-color: white;
+    min-height: 125px;
     
     .icon {
       width: 125px;
