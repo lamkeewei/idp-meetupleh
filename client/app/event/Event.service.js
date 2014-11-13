@@ -54,6 +54,44 @@ angular.module('idpMeetuplehApp')
       return sync.$push(event);
     };
 
+    this.getEventAttendeesFull = function(eventId){
+      var deferred = $q.defer();
+      var ref = this.baseRef.child(eventId).child('attendees');
+      var sync = $firebase(ref).$asArray();
+
+      sync.$loaded()
+        .then(function(attendees){
+          var promises = [];
+
+          attendees.forEach(function(a){
+            var d = $q.defer();
+            User.getUser(a.$id).$loaded()
+              .then(function(user){
+                a.user = user;
+                d.resolve();
+              });
+
+            promises.push(d.promise);
+          });
+
+          $q.all(promises).then(function(){
+            deferred.resolve(attendees);
+          });
+
+          sync.$watch(function(event) {
+            if (event.key) {
+              attendees.forEach(function(attendee){
+                if (attendee.$id === event.key) {
+                  attendee.user = User.getUser(attendee.$id);
+                }
+              });
+            }
+          });
+        });
+
+      return deferred.promise;
+    };   
+
     this.getAllEvents = function(){
       var sync = $firebase(this.baseRef);
       return sync.$asArray();
