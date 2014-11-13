@@ -23,7 +23,6 @@ angular.module('idpMeetuplehApp')
 
       bootstrap.forEach(function(b){
         if (b.$value === 3) {
-          console.log(b.$id);
           Event.dropUser(eventId, b.$id);
         }
       });

@@ -9,6 +9,11 @@ angular.module('idpMeetuplehApp')
       return $firebase(ref).$asObject();      
     };
 
+    this.leaveEvent = function(userId, eventId){
+      var ref = this.baseRef.child('users').child(userId).child('events').child(eventId);
+      return $firebase(ref).$remove();
+    };
+
     this.login = function (userId) {
       var deferred = $q.defer();
 

@@ -4,6 +4,11 @@ angular.module('idpMeetuplehApp')
   .service('Suggestion', function ($window, $firebase, $q, Place, Vote, $rootScope) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/suggestions');
 
+    this.deleteEventSuggestion = function(eventId){
+      var ref = this.baseRef.child(eventId);
+      return $firebase(ref).$remove();
+    };
+
     this.addSuggestion = function(eventId, activity, placeId){      
       var ref = this.baseRef.child(eventId).child(activity).child(placeId);
       var sync = $firebase(ref);

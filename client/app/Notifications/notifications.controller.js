@@ -48,38 +48,47 @@ angular.module('idpMeetuplehApp')
     };
 
     $scope.processNewVoteText = function(notification){        
-        var voteUpOrDown = notification.vote > 0 ? 'up' : 'down';
-        var text = notification.user.firstName + ' voted ' + voteUpOrDown + ' a suggestion.';
-        return text;
-      };
+      var voteUpOrDown = notification.vote > 0 ? 'up' : 'down';
+      var text = notification.user.firstName + ' voted ' + voteUpOrDown + ' a suggestion.';
+      return text;
+    };
 
-      $scope.getFirstCharacter = function(notification){
-        return notification.user.firstName.charAt(0);
-      };
+    $scope.processNewSuggestionText = function(notification){        
+      var text = notification.user.firstName + ' made a new suggestion.';
+      return text;
+    };
 
-      $scope.goToNotification = function(notification){
-        switch(notification.type){
-          case 'new-vote':
-            $location.path('/suggestion/list/' + notification.activity);
-            break;
-        }
+    $scope.getFirstCharacter = function(notification){
+      return notification.user.firstName.charAt(0);
+    };
 
-        $materialSidenav('right').toggle();
-      };
+    $scope.goToNotification = function(notification){
+      switch(notification.type){
+        case 'new-vote':
+          $location.path('/suggestion/list/' + notification.activity);
+          break;
+        case 'new-suggestion':
+          $location.path('/suggestion/list/' + notification.activity);
+          break;
+      }
 
-      $scope.getText = function (notification) {
-        var text = '';
+      $materialSidenav('right').toggle();
+    };
 
-        switch(notification.type) {
-          case 'new-vote':
-            text = $scope.processNewVoteText(notification);
-            break;
-          case 'new-event':
-            break;
-          case 'new-timeslot':
-            break;
-        }
+    $scope.getText = function (notification) {
+      var text = '';
 
-        return text;
-      };
+      switch(notification.type) {
+        case 'new-vote':
+          text = $scope.processNewVoteText(notification);
+          break;
+        case 'new-suggestion':
+          text = $scope.processNewSuggestionText(notification);
+          break;
+        case 'new-timeslot':
+          break;
+      }
+
+      return text;
+    };
   });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('NewsuggestionCtrl', function ($scope, $timeout, $location, $stateParams, State, Place, Suggestion) {
+  .controller('NewsuggestionCtrl', function ($scope, $timeout, $location, $stateParams, State, Place, Suggestion, $window) {
     $scope.back = function(){
       State.back();
     };
@@ -32,7 +32,15 @@ angular.module('idpMeetuplehApp')
     };
 
     $scope.searchPlace = function(){
-      if (!$scope.searchParams.keywords || !$scope.searchParams.price || !$scope.searchParams.area) {
+      var condition = !$scope.searchParams.keywords || !$scope.searchParams.price || !$scope.searchParams.area;
+      condition = condition && !State.search.suggestion;
+      if (condition) {
+        $window.swal({
+          title: "Oops!",
+          text: "Make sure to fill out all search field!",
+          type: 'warning',
+          timer: 1500 
+        });
         return;
       }
 
@@ -42,13 +50,25 @@ angular.module('idpMeetuplehApp')
       if ($scope.flags.isSearching) {
         // Store search state
         $scope.flags.searchLabel = 'Searching...';
-        Place.search($scope.searchParams, function(places){
+        Place.search($scope.searchParams, function(places){          
           $scope.flags.searchDone = true;
           $scope.flags.searchLabel = 'New Search';
 
           $timeout(function(){            
             State.search.suggestion = places;
             $scope.results = places;
+
+            if (places.length === 0) {
+              $window.swal({
+                title: "No Match!",
+                text: "Try refining your search!",
+                type: 'warning',
+                timer: 2000 
+              });
+
+              $scope.searchPlace();
+              return;
+            };
           }, 670);
         });
       } else {
@@ -74,7 +94,7 @@ angular.module('idpMeetuplehApp')
         score += review.ratings;
       });
 
-      return score / place.reviews.length;
+      return Math.round(score / place.reviews.length);
     };
 
     $scope.addSuggestion = function(event, place){

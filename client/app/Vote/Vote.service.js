@@ -4,6 +4,11 @@ angular.module('idpMeetuplehApp')
   .service('Vote', function ($window, $firebase, $q, $rootScope) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/votes');
 
+    this.deleteEventVotes = function(eventId){
+      var ref = this.baseRef.child(eventId);
+      return $firebase(ref).$remove();
+    };
+
     this.getVotes = function(eventId, activity, placeId){
       var ref = this.baseRef.child(eventId).child(activity).child(placeId);
       return $firebase(ref).$asArray();

@@ -1,0 +1,43 @@
+<material-toolbar class="material-theme-dark" layout-order-lg="1">
+  <h2 class="material-toolbar-tools">
+    <material-button class="material-theme-dark" ng-click="back()"><i class="fa fa-chevron-left"></i> Event Attendees</material-button>
+    <span flex></span>    
+    <material-button ng-click="add()" class="material-theme-dark" ng-show="isCurrentOrganizer()">
+      + Add
+    </material-button>
+  </h2>
+</material-toolbar>
+
+<div id="attendees-content" layout="vertical" layout-order-lg="3" flex layout-padding ng-switch on="flags.tabIndex">
+
+  <material-subheader class="subheader material-subheader-colored">Attendees:</material-subheader>
+
+  <material-content layout-padding>
+    <material-list id="attendees-list">
+      <material-item ng-repeat="attendee in attendees">
+        <material-item-content>
+          <div class="material-tile-left">
+              <h3>
+                {{getFirstChar(attendee.user.name.firstName)}}
+              </h3>
+          </div>
+          <div class="material-tile-content">
+            <h3>
+              <span ng-show="attendee.user.$id !== currentUser.$id">{{attendee.user.name.firstName}} {{attendee.user.name.lastName}}</span>
+              <span ng-hide="attendee.user.$id !== currentUser.$id">You</span>
+              <small ng-show="isOrganizer(attendee.user)">(Organizer)</small>
+            </h3>
+          </div>
+
+          <material-button 
+            class="delete-btn" 
+            ng-show="isCurrentOrganizer() && attendee.user.$id !== currentUser.$id" 
+            ng-click="dropUser(attendee.user)">
+            <i class="fa fa-times-circle"></i>
+          </material-button>
+        </material-item-content>
+        <material-divider ng-show="!$last"></material-divider>
+      </material-item>
+    </material-list>
+  </material-content>
+</div>

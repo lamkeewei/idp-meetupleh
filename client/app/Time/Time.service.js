@@ -4,6 +4,11 @@ angular.module('idpMeetuplehApp')
   .service('Time', function ($firebase, $window, $q, $rootScope) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/');
 
+    this.deleteEventAvailabilities = function(eventId){
+      var ref = this.baseRef.child('availabilities').child(eventId);
+      return $firebase(ref).$remove();
+    };
+
     this.getEventTimes = function(eventId){
       var ref = this.baseRef.child('events').child(eventId).child('date');
       return $firebase(ref).$asArray();

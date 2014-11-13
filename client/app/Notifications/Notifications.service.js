@@ -4,6 +4,11 @@ angular.module('idpMeetuplehApp')
   .service('Notifications', function ($rootScope, $window, Event, $firebase) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/notifications');
 
+    this.deleteEventNotifications = function(userId, eventId){
+      var ref = this.baseRef.child(userId).child(eventId);
+      return $firebase(ref).$remove();
+    };
+
     this.saveNotification = function (notification, userId, eventId) {
       var ref = this.baseRef.child(userId).child(eventId);
       var sync = $firebase(ref);

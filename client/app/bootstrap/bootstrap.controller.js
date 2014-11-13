@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .controller('BootstrapCtrl', function ($scope, $location, $timeout, places, event, Suggestion, $stateParams, Event, bootstrap, Bootstrap) {    
+  .controller('BootstrapCtrl', function ($scope, $rootScope, $location, $timeout, places, event, Call, Suggestion, $stateParams, Event, bootstrap, Bootstrap) {    
 
     $scope.bootstrap = bootstrap;
 
@@ -31,7 +31,16 @@ angular.module('idpMeetuplehApp')
       $timeout(function(){
         Suggestion.addSuggestion($stateParams.id, 1, place._id)
           .then(function(){
-            Event.setBootstrap($stateParams.id, 2);            
+            Event.setBootstrap($stateParams.id, 2);
+
+            $scope.bootstrap.forEach(function(user){
+              Call.get({
+                eventId: $stateParams.id,
+                title: event.title,
+                userId: user.$id,
+                number: user.user.phone                
+              });
+            });
           });
       }, 2300);      
     };
@@ -88,7 +97,6 @@ angular.module('idpMeetuplehApp')
           });
 
           $timeout(function() {
-            console.log('fkkkk');
             Bootstrap.drop(bootstrap, $stateParams.id);            
           }, 1700);
         } else {

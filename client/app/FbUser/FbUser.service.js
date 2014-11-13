@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpMeetuplehApp')
-  .service('FbUser', function ($window, $firebase, $q, Event) {
+  .service('FbUser', function ($window, $firebase, $q, Event, $rootScope) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/users');
 
     this.getUser = function(md5) {
@@ -71,6 +71,38 @@ angular.module('idpMeetuplehApp')
             deferred.resolve(data);
           });
         });        
+
+        return deferred.promise;
+    };
+
+    this.getEventContacts = function(eventId){
+      var promises = [];
+      var deferred = $q.defer();
+
+      promises.push(Event.getEventAttendees(eventId).$loaded());
+      promises.push(this.getContacts($rootScope.currentUser.$id));
+
+      $q.all(promises)
+        .then(function(results){
+          var contacts = results[1];
+          var invited = results[0];
+          var filtered = [];
+
+          contacts.forEach(function(c){
+            var match = false;
+            invited.forEach(function(i){              
+              if (c.$id === i.$id) {
+                match = true;
+              }
+            });
+
+            if (!match) {
+              filtered.push(c);              
+            }
+          });
+
+          deferred.resolve(filtered);
+        });
 
         return deferred.promise;
     };

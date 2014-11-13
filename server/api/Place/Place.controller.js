@@ -67,7 +67,6 @@ exports.search = function (req, res) {
         var match = false;
         var placeTags = place.tags;
 
-
         placeTags.forEach(function(tag){
           keywords.forEach(function(word){
             if (_.contains(tag, word)) {
@@ -75,6 +74,10 @@ exports.search = function (req, res) {
             }
           });
         });
+
+        if (_.contains(place.name.toLowerCase(), query.keywords.toLowerCase())) {
+          match = true;
+        }
 
         return match;
       });

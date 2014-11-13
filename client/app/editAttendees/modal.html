@@ -1,0 +1,27 @@
+<material-dialog aria-label="Choose Date" id="contact-dialog">
+  <div class="dialog-content" layout="vertical">
+    <material-input-group ng-disabled="isDisabled" class="search-field-group ">
+      <label>Search for Contact...</label>
+      <material-input type="text" ng-model="search.$"></material-input>
+    </material-input-group>
+    
+    <material-content flex>
+     <material-list id="attendees-list">
+        <material-item ng-repeat="contact in contacts | filter: search" ng-click="add(contact)">
+          <material-item-content>
+            <div class="material-tile-content">
+              <h3>
+                {{contact.name.firstName}} {{contact.name.lastName}}
+              </h3>
+            </div>
+
+            <material-button class="add-btn">
+              <i class="fa fa-plus-circle"></i>
+            </material-button>
+          </material-item-content>
+          <material-divider ng-show="!$last"></material-divider>
+        </material-item>
+      </material-list>
+    </material-content>
+  </div>
+</material-dialog>
