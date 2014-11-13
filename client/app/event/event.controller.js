@@ -18,6 +18,28 @@ angular.module('idpMeetuplehApp')
       three: activityThree
     };
 
+    $scope.getBudget = function(){
+      var min = 0;
+      var max = 0;
+
+      if ( $scope.activities.one.length > 0) {
+        var min = $scope.activities.one[0].details.price.min;        
+        var max = $scope.activities.one[0].details.price.max;
+      }
+
+      if ( $scope.activities.two.length > 0) {
+        var min = $scope.activities.two[0].details.price.min;        
+        var max = $scope.activities.two[0].details.price.max;
+      }
+
+      if ( $scope.activities.three.length > 0) {
+        var min = $scope.activities.three[0].details.price.min;        
+        var max = $scope.activities.three[0].details.price.max;
+      }
+      
+      return '$' + min + ' - ' + max;
+    };
+
     $scope.needHelp = function(){
       var condition = $scope.activities.one.length === 0 
         && $scope.activities.two.length === 0 
