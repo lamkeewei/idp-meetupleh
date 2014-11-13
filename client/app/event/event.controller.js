@@ -162,7 +162,7 @@ angular.module('idpMeetuplehApp')
     }
 
     $scope.changeAttendees = function(){
-      $location.path('/event/new');
+      $location.path('/event/' + $stateParams.id + '/attendees');
     };
 
     $scope.isTied = function (activities) {
