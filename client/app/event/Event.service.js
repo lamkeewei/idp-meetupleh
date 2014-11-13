@@ -4,6 +4,11 @@ angular.module('idpMeetuplehApp')
   .service('Event', function ($window, $firebase, $q, User) {
     this.baseRef = new $window.Firebase('https://idp-meetupleh.firebaseio.com/events');
 
+    this.addToEvent = function(userId, eventId){
+      var ref = this.baseRef.child(eventId).child('attendees').child(userId);
+      $firebase(ref).$set(true);
+    };
+
     this.setBootstrap = function(eventId, step){
       var ref = this.baseRef.child(eventId).child('bootstrap');
       return $firebase(ref).$set(step);
@@ -28,6 +33,7 @@ angular.module('idpMeetuplehApp')
 
     this.dropUser = function(eventId, userId){
       var ref = this.baseRef.child(eventId).child('attendees').child(userId);
+      User.leaveEvent(userId, eventId);
       return $firebase(ref).$remove();
     };
 
@@ -52,6 +58,16 @@ angular.module('idpMeetuplehApp')
       event.date[date.getTime() + '-afternoon'] = false;
       event.date[date.getTime() + '-evening'] = false;
       return sync.$push(event);
+    };
+
+    this.getAllEvents = function(){
+      var sync = $firebase(this.baseRef);
+      return sync.$asArray();
+    };
+
+    this.getEventAttendees = function(eventId){
+      var ref = this.baseRef.child(eventId).child('attendees');
+      return $firebase(ref).$asArray();      
     };
 
     this.getEventAttendeesFull = function(eventId){
@@ -92,16 +108,6 @@ angular.module('idpMeetuplehApp')
       return deferred.promise;
     };   
 
-    this.getAllEvents = function(){
-      var sync = $firebase(this.baseRef);
-      return sync.$asArray();
-    };
-
-    this.getEventAttendees = function(eventId){
-      var ref = this.baseRef.child(eventId).child('attendees');
-      return $firebase(ref).$asArray();      
-    };
-
     this.getEvent = function(eventId) {
       var sync = $firebase(this.baseRef.child(eventId));
       return sync.$asObject();
@@ -110,5 +116,10 @@ angular.module('idpMeetuplehApp')
     this.unconfirm = function (timing, eventId) {
       var ref = this.baseRef.child(eventId).child('date').child(timing.$id);
       return $firebase(ref).$set(false);
+    };
+
+    this.deleteEvent = function(eventId) {
+      var ref = this.baseRef.child(eventId);
+      return $firebase(ref).$remove();
     };
   });
